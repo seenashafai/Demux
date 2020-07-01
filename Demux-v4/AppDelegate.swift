@@ -11,7 +11,6 @@ import UIKit
  
 class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate {
     
-    
     //MARK: - SPTSessionManagerDelegate
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
         print("success")
@@ -22,49 +21,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
         print(error)
     }
     
-
+    //MARK: - SPTConfiguration
     let SpotifyClientID = "f9c4ab38a6fa40a1bdfc3f5ad8156d1e"
     let SpotifyRedirectURL = URL(string: "demux://callback/")!
     
-
     lazy var configuration = SPTConfiguration(
       clientID: SpotifyClientID,
       redirectURL: SpotifyRedirectURL
     )
 
+    //MARK: - SPTSessionManager
     lazy var sessionManager: SPTSessionManager = {
         //Swap tokens
-      if let tokenSwapURL = URL(string: "https://tame-cottony-vegetable.glitch.me/api/token"),
-         let tokenRefreshURL = URL(string: "https://tame-cottony-vegetable.glitch.me/api/refresh_token") {
-        print("yes")
+        if let tokenSwapURL = URL(string: "https://tame-cottony-vegetable.glitch.me/api/token"),
+        let tokenRefreshURL = URL(string: "https://tame-cottony-vegetable.glitch.me/api/refresh_token") {
         //Add swap config
         self.configuration.tokenSwapURL = tokenSwapURL
         self.configuration.tokenRefreshURL = tokenRefreshURL
         self.configuration.playURI = "spotify:track:4baAwbpkroYCwSIlaqzNXy" //Shoot the Runner
-        
-        print(tokenSwapURL, tokenRefreshURL)
-      }
-      let manager = SPTSessionManager(configuration: self.configuration, delegate: self)
-      return manager
+    }
+        //Initialize session manager
+        let manager = SPTSessionManager(configuration: self.configuration, delegate: self)
+        return manager
     }()
     
-  
     
+    //Automatically runs once app has finished launching
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        //Define scopes
         let requestedScopes: SPTScope = [.appRemoteControl]
+        //Initialize Auth modal
         self.sessionManager.initiateSession(with: requestedScopes, options: .default)
-        print("go to spotify")
         
         if (launchOptions?[UIApplication.LaunchOptionsKey.url] as? URL) != nil {
             //Error
-           }
+        }
         return true
     }
 
 
 
-    // MARK: UISceneSession Lifecycle
-
+    //MARK: - UISceneSession Lifecycle
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.

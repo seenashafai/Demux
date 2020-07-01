@@ -11,10 +11,10 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTSessionManagerDelegate {
 
     var window: UIWindow?
+    //Reference app delegate for session manager
     lazy var appdelegate = AppDelegate()
     
-    // MARK - SPTSessionManagerDelegate
-       
+    //MARK: - SPTSessionManagerDelegate
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
         print("success", session)
     }
@@ -27,10 +27,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTSessionManagerDelega
         print("renewed", session)
     }
     
-
-
+    //OpenURl to handle callback
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        //Check for URL
+        guard let url = URLContexts.first?.url else {
+            return
+        }
+        //Init session manager with callback code
+        appdelegate.sessionManager.application(UIApplication.shared, open: url, options: [:])
+        
+    }
     
-
+    
+    //MARK: - UIScene Lifecycle
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         // Create the SwiftUI view that provides the window contents.
@@ -45,20 +54,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTSessionManagerDelega
         }
         print(connectionOptions.debugDescription, "optsdebug")
     }
-
-    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-      guard let url = URLContexts.first?.url else {
-        return
-      }
-        let opts:UIApplication.OpenURLOptionsKey = UIApplication.OpenURLOptionsKey(rawValue: "code")
-        print(url, "url")
-        let callbackCode = String(String(url.description).dropFirst(23))//Removes junk from callback URL containing code only
-      //bruh
-        appdelegate.sessionManager.application(UIApplication.shared, open: url, options: [opts:callbackCode])
-        
-    }
-    
-    
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
