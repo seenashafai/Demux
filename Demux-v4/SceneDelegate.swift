@@ -8,15 +8,30 @@
 import UIKit
 import SwiftUI
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTSessionManagerDelegate {
 
     var window: UIWindow?
+    lazy var appdelegate = AppDelegate()
+    
+    // MARK - SPTSessionManagerDelegate
+       
+    func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
+        print("success", session)
+    }
+    
+    func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
+        print("failed", error)
+    }
+   
+    func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
+        print("renewed", session)
+    }
+    
 
+
+    
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView()
@@ -28,7 +43,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+        print(connectionOptions.debugDescription, "optsdebug")
     }
+
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+      guard let url = URLContexts.first?.url else {
+        return
+      }
+        let opts:UIApplication.OpenURLOptionsKey = UIApplication.OpenURLOptionsKey(rawValue: "code")
+        print(url, "url")
+        let callbackCode = String(String(url.description).dropFirst(23))//Removes junk from callback URL containing code only
+      //bruh
+        appdelegate.sessionManager.application(UIApplication.shared, open: url, options: [opts:callbackCode])
+        
+    }
+    
+    
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

@@ -8,14 +8,60 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+ 
+class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate {
+    
+    
+    //MARK: - SPTSessionManagerDelegate
+    func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
+        print("success")
+    }
+    
+    func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
+        print("fail")
+        print(error)
+    }
+    
 
+    let SpotifyClientID = "f9c4ab38a6fa40a1bdfc3f5ad8156d1e"
+    let SpotifyRedirectURL = URL(string: "demux://callback/")!
+    
 
+    lazy var configuration = SPTConfiguration(
+      clientID: SpotifyClientID,
+      redirectURL: SpotifyRedirectURL
+    )
 
+    lazy var sessionManager: SPTSessionManager = {
+        //Swap tokens
+      if let tokenSwapURL = URL(string: "https://tame-cottony-vegetable.glitch.me/api/token"),
+         let tokenRefreshURL = URL(string: "https://tame-cottony-vegetable.glitch.me/api/refresh_token") {
+        print("yes")
+        //Add swap config
+        self.configuration.tokenSwapURL = tokenSwapURL
+        self.configuration.tokenRefreshURL = tokenRefreshURL
+        self.configuration.playURI = "spotify:track:4baAwbpkroYCwSIlaqzNXy" //Shoot the Runner
+        
+        print(tokenSwapURL, tokenRefreshURL)
+      }
+      let manager = SPTSessionManager(configuration: self.configuration, delegate: self)
+      return manager
+    }()
+    
+  
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let requestedScopes: SPTScope = [.appRemoteControl]
+        self.sessionManager.initiateSession(with: requestedScopes, options: .default)
+        print("go to spotify")
+        
+        if (launchOptions?[UIApplication.LaunchOptionsKey.url] as? URL) != nil {
+            //Error
+           }
         return true
     }
+
+
 
     // MARK: UISceneSession Lifecycle
 
