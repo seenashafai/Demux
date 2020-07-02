@@ -52,7 +52,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTSessionManagerDelega
             self.window = window
             window.makeKeyAndVisible()
         }
-        print(connectionOptions.debugDescription, "optsdebug")
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

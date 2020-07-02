@@ -16,20 +16,21 @@ struct ContentView: View {
     let SpotifyClientID = "f9c4ab38a6fa40a1bdfc3f5ad8156d1e"
     let userInfoEndpoint = "https://api.spotify.com/v1/me/"
     let authToken = "BQCsjDENnLBUn0g59Zcox2p3wuHYLqV7LCzSRyBK_SFGvpLhM-TCHPR-xcIVberjtfdCAGCOW-Oiuh77Ojqqjq-kuSd_2dh5Er8dEkViN1fRMCMU9a0c2vr_Qc8Gbdqxu5bizpZ9WDHWULnRG21KGyJxeMcpO8raV4yBSMZhxCZtp8M-6Rf75MeCAN6XkyvV4QyFZ_w-fPf9l7SSEHZYcNm0VFpltKZAi4_yTfv31yhXaHIUYtzN0fXYzCN8hcuRDBGzsnLsqR4jMdg"
+    let redirectURI = "demux://callback/"
 
     var body: some View {
         VStack {
             WelcomeText()
             Button(action: {
                 //Send req to API to get user details
-                AF.request(userInfoEndpoint, method: .get, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer "+authToken]).responseJSON { response in
-                    print(response.debugDescription)
-                    //Decode response as JSON
-                    if let result = response.value {
-                        let JSON = result as! NSDictionary
-                        print(JSON)
-                    }
-                }
+//                AF.request(userInfoEndpoint, method: .get, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer "+authToken]).responseJSON { response in
+//                    print(response.debugDescription)
+//                    //Decode response as JSON
+//                    if let result = response.value {
+//                        let JSON = result as! NSDictionary
+//                        print(JSON)
+//                    }
+//                }
             }) {
                 Text("Connect to Spotify")
                     .fontWeight(.bold)
@@ -43,6 +44,23 @@ struct ContentView: View {
             }
         }
     }
+
+//Fuck this shit
+func manualAuth(SpotifyClientID: String, redirectURI: String) {
+    var urlParameters = URLComponents(string: "https://accounts.spotify.com/authorize/")!
+
+    urlParameters.queryItems = [
+        URLQueryItem(name: "client_id", value: SpotifyClientID),
+        URLQueryItem(name: "response_type", value: "code"),
+        URLQueryItem(name: "redirect_uri", value: redirectURI),
+        //URLQueryItem(name: "scope", value: scope)
+    ]
+
+    AF.request(urlParameters.url!, method: .get) {response in
+        print(response.urlRequest)
+    }
+    UIApplication.shared.open(urlParameters.url!)
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
