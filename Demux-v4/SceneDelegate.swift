@@ -8,33 +8,68 @@
 import UIKit
 import SwiftUI
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTSessionManagerDelegate {
-
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate {
+    
     var window: UIWindow?
     //Reference app delegate for session manager
     lazy var appdelegate = AppDelegate()
+    static private let kAccessTokenKey = "access-token-key"
+
     
-    //MARK: - SPTSessionManagerDelegate
-    func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
-        print("success", session)
+    //MARK: - SPTAppRemoteDelegate
+    func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
+        print("connected")
     }
     
-    func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
-        print("failed", error)
+    func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
+        print("error")
     }
-   
-    func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
-        print("renewed", session)
+    
+    func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
+        print("disconnected")
     }
+    
+    //MARK: - SPTAppRemotePlayerStateDelegate
+    func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
+        print("player state changed")
+    }
+    
+    
+    //Initialise app remote
+    lazy var appRemote: SPTAppRemote = {
+      let appRemote = SPTAppRemote(configuration: appdelegate.configuration, logLevel: .debug)
+      appRemote.delegate = self
+      return appRemote
+    }()
+    
+    //Configure access token
+    var accessToken = UserDefaults.standard.string(forKey: kAccessTokenKey) {
+        didSet {
+            let defaults = UserDefaults.standard
+            defaults.set(accessToken, forKey: SceneDelegate.kAccessTokenKey)
+        }
+    }
+    
     
     //OpenURl to handle callback
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        print("callback received")
         //Check for URL
         guard let url = URLContexts.first?.url else {
+            print("wtaf")
             return
         }
+        
+        let parameters = appRemote.authorizationParameters(from: url);
+
+                if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
+                    appRemote.connectionParameters.accessToken = access_token
+                    self.accessToken = access_token
+                    print(accessToken, "aToken")
+                }
         //Init session manager with callback code
         appdelegate.sessionManager.application(UIApplication.shared, open: url, options: [:])
+        print("begin session???")
         
     }
     
@@ -53,6 +88,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTSessionManagerDelega
             window.makeKeyAndVisible()
         }
     }
+    
+    //App remote connect on scene activation
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        //self.appRemote.authorizeAndPlayURI("spotify:track:4baAwbpkroYCwSIlaqzNXy" )
+        //self.appRemote.connect()
+    }
+    
+    //App remote disconnect on scene deactivation
+    func sceneWillResignActive(_ scene: UIScene) {
+        if self.appRemote.isConnected {
+            self.appRemote.disconnect()
+        }
+    }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
@@ -61,15 +109,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTSessionManagerDelega
         // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
     }
 
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-    }
-
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
-    }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.

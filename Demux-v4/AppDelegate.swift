@@ -11,9 +11,14 @@ import UIKit
  
 class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate {
     
+    let scenedelegate = SceneDelegate()
+    
     //MARK: - SPTSessionManagerDelegate
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
         print("success")
+        scenedelegate.appRemote.connectionParameters.accessToken = session.accessToken
+        print(session.accessToken, "accessToken")
+        //scenedelegate.appRemote.connect()
     }
     
     func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
@@ -38,7 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
         //Add swap config
         self.configuration.tokenSwapURL = tokenSwapURL
         self.configuration.tokenRefreshURL = tokenRefreshURL
-        self.configuration.playURI = "spotify:track:4baAwbpkroYCwSIlaqzNXy" //Shoot the Runner
+        //self.configuration.playURI = "spotify:track:4baAwbpkroYCwSIlaqzNXy" //Shoot the Runner
+        print("config complete")
     }
         //Initialize session manager
         let manager = SPTSessionManager(configuration: self.configuration, delegate: self)
@@ -46,22 +52,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
     }()
     
     
+    //MARK: - AppDelegate Lifecycle
+    
     //Automatically runs once app has finished launching
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //Define scopes
         let requestedScopes: SPTScope = [.appRemoteControl]
         //Initialize Auth modal
         self.sessionManager.initiateSession(with: requestedScopes, options: .default)
+        print("auth modal presented")
         
         if (launchOptions?[UIApplication.LaunchOptionsKey.url] as? URL) != nil {
             //Error
         }
         return true
     }
-
-
-
-    //MARK: - UISceneSession Lifecycle
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.

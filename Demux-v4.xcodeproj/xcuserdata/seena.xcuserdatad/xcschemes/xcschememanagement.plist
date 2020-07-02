@@ -4,10 +4,33 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Demux-v4 1.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>Demux-v4.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>04E8D98024A68B5000B58F10</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>04E8D99624A68B5200B58F10</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>04E8D9A124A68B5200B58F10</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

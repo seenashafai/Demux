@@ -1,0 +1,26 @@
+//Send req to API to get user details
+AF.request(userInfoEndpoint, method: .get, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer "+authToken]).responseJSON { response in
+    print(response.debugDescription)
+    //Decode response as JSON
+    if let result = response.value {
+        let JSON = result as! NSDictionary
+        print(JSON)
+    }
+}
+
+//Manual auth (imagine actually doing this)
+func manualAuth(SpotifyClientID: String, redirectURI: String) {
+    var urlParameters = URLComponents(string: "https://accounts.spotify.com/authorize/")!
+
+    urlParameters.queryItems = [
+        URLQueryItem(name: "client_id", value: SpotifyClientID),
+        URLQueryItem(name: "response_type", value: "code"),
+        URLQueryItem(name: "redirect_uri", value: redirectURI),
+        //URLQueryItem(name: "scope", value: scope)
+    ]
+
+    AF.request(urlParameters.url!, method: .get) {response in
+        print(response.urlRequest)
+    }
+    UIApplication.shared.open(urlParameters.url!)
+}

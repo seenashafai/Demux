@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0446BAA424A68D040053BF07 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E8D9B524A68BB000B58F10 /* SpotifyiOS.framework */; };
+		04A0C08224AE71FC0090C394 /* notes in Resources */ = {isa = PBXBuildFile; fileRef = 04A0C08124AE71FC0090C394 /* notes */; };
 		04B1223824ACCC1D0042FB38 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 04B1223724ACCC1D0042FB38 /* Alamofire */; };
 		04E8D98524A68B5000B58F10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E8D98424A68B5000B58F10 /* AppDelegate.swift */; };
 		04E8D98724A68B5000B58F10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E8D98624A68B5000B58F10 /* SceneDelegate.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		0446BA9E24A68C330053BF07 /* Demux-v4-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demux-v4-Bridging-Header.h"; sourceTree = "<group>"; };
 		0446BAA224A68CFA0053BF07 /* ios-sdk-1.2.2.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = "ios-sdk-1.2.2.zip"; path = "../../../../Downloads/ios-sdk-1.2.2.zip"; sourceTree = "<group>"; };
+		04A0C08124AE71FC0090C394 /* notes */ = {isa = PBXFileReference; lastKnownFileType = text; path = notes; sourceTree = "<group>"; };
 		04E8D98124A68B5000B58F10 /* Demux-v4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demux-v4.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E8D98424A68B5000B58F10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04E8D98624A68B5000B58F10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				04E8D98424A68B5000B58F10 /* AppDelegate.swift */,
 				04E8D98624A68B5000B58F10 /* SceneDelegate.swift */,
 				04E8D98824A68B5000B58F10 /* ContentView.swift */,
+				04A0C08124AE71FC0090C394 /* notes */,
 				04E8D98A24A68B5200B58F10 /* Assets.xcassets */,
 				04E8D98F24A68B5200B58F10 /* LaunchScreen.storyboard */,
 				04E8D99224A68B5200B58F10 /* Info.plist */,
@@ -269,6 +272,7 @@
 			files = (
 				04E8D99124A68B5200B58F10 /* LaunchScreen.storyboard in Resources */,
 				04E8D98E24A68B5200B58F10 /* Preview Assets.xcassets in Resources */,
+				04A0C08224AE71FC0090C394 /* notes in Resources */,
 				04E8D98B24A68B5200B58F10 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,6 +484,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.seenashafai.Demux-v4";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Demux-v4/Demux-v4-Bridging-Header.h";
@@ -508,6 +513,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.seenashafai.Demux-v4";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Demux-v4/Demux-v4-Bridging-Header.h";
