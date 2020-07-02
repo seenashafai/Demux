@@ -23,7 +23,7 @@ struct ContentView: View {
         VStack {
             WelcomeText()
             Button(action: {
-                print(appdelegate.sessionManager.session?.accessToken)
+                print(Session.globalSession.authToken, "authToken")
                 
             }) {
                 Text("Host a party")

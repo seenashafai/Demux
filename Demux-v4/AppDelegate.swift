@@ -16,8 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
     //MARK: - SPTSessionManagerDelegate
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
         print("success")
+        Session.globalSession.authToken = session.accessToken
         scenedelegate.appRemote.connectionParameters.accessToken = session.accessToken
-        print(session.accessToken, "accessToken")
+        
         //scenedelegate.appRemote.connect()
     }
     
