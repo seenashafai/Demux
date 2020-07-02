@@ -12,11 +12,7 @@ import Alamofire
 
 struct ContentView: View {
 
-    var appdelegate = AppDelegate()
-    var scenedelegate = SceneDelegate()
-    let SpotifyClientID = "f9c4ab38a6fa40a1bdfc3f5ad8156d1e"
     let userInfoEndpoint = "https://api.spotify.com/v1/me/"
-    let authToken = "BQCsjDENnLBUn0g59Zcox2p3wuHYLqV7LCzSRyBK_SFGvpLhM-TCHPR-xcIVberjtfdCAGCOW-Oiuh77Ojqqjq-kuSd_2dh5Er8dEkViN1fRMCMU9a0c2vr_Qc8Gbdqxu5bizpZ9WDHWULnRG21KGyJxeMcpO8raV4yBSMZhxCZtp8M-6Rf75MeCAN6XkyvV4QyFZ_w-fPf9l7SSEHZYcNm0VFpltKZAi4_yTfv31yhXaHIUYtzN0fXYzCN8hcuRDBGzsnLsqR4jMdg"
     let redirectURI = "demux://callback/"
 
     var body: some View {
@@ -36,7 +32,16 @@ struct ContentView: View {
                         .padding(10)
                 }
             Button(action: {
-                print(scenedelegate.appRemote.connectionParameters.accessToken, "aT")
+                //TODO: - add guard statement for accesstoken...
+                AF.request(userInfoEndpoint, method: .get, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer "+Session.globalSession.authToken!]).responseJSON { response in
+                    print(response.debugDescription)
+                    //Decode response as JSON
+                    if let result = response.value {
+                        let JSON = result as! NSDictionary
+                        print(JSON)
+                    }
+                }
+
                 
             }) {
                 Text("Join a party")
