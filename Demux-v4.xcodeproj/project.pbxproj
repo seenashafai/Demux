@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0446BAA424A68D040053BF07 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E8D9B524A68BB000B58F10 /* SpotifyiOS.framework */; };
+		046C2FA624B22907007AE923 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C2FA524B22907007AE923 /* Track.swift */; };
+		046C2FA924B382A4007AE923 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 046C2FA824B382A4007AE923 /* SwiftyJSON */; };
 		0486340324B0E7F600168A2B /* SongSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486340224B0E7F600168A2B /* SongSearchView.swift */; };
 		0486340524B0EC5800168A2B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486340424B0EC5800168A2B /* SearchBar.swift */; };
 		04A0C08224AE71FC0090C394 /* notes in Resources */ = {isa = PBXBuildFile; fileRef = 04A0C08124AE71FC0090C394 /* notes */; };
@@ -48,6 +50,7 @@
 /* Begin PBXFileReference section */
 		0446BA9E24A68C330053BF07 /* Demux-v4-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demux-v4-Bridging-Header.h"; sourceTree = "<group>"; };
 		0446BAA224A68CFA0053BF07 /* ios-sdk-1.2.2.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = "ios-sdk-1.2.2.zip"; path = "../../../../Downloads/ios-sdk-1.2.2.zip"; sourceTree = "<group>"; };
+		046C2FA524B22907007AE923 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		0486340224B0E7F600168A2B /* SongSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSearchView.swift; sourceTree = "<group>"; };
 		0486340424B0EC5800168A2B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		04A0C08124AE71FC0090C394 /* notes */ = {isa = PBXFileReference; lastKnownFileType = text; path = notes; sourceTree = "<group>"; };
@@ -80,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046C2FA924B382A4007AE923 /* SwiftyJSON in Frameworks */,
 				0446BAA424A68D040053BF07 /* SpotifyiOS.framework in Frameworks */,
 				04B1223824ACCC1D0042FB38 /* Alamofire in Frameworks */,
 			);
@@ -145,6 +149,7 @@
 				0486340424B0EC5800168A2B /* SearchBar.swift */,
 				04A0C08B24AE83910090C394 /* Queue List */,
 				04A0C08124AE71FC0090C394 /* notes */,
+				046C2FA524B22907007AE923 /* Track.swift */,
 				04A0C08324AE74D90090C394 /* Session.swift */,
 				04E8D98A24A68B5200B58F10 /* Assets.xcassets */,
 				04E8D98F24A68B5200B58F10 /* LaunchScreen.storyboard */,
@@ -210,6 +215,7 @@
 			name = "Demux-v4";
 			packageProductDependencies = (
 				04B1223724ACCC1D0042FB38 /* Alamofire */,
+				046C2FA824B382A4007AE923 /* SwiftyJSON */,
 			);
 			productName = "Demux-v4";
 			productReference = 04E8D98124A68B5000B58F10 /* Demux-v4.app */;
@@ -285,6 +291,7 @@
 			mainGroup = 04E8D97824A68B5000B58F10;
 			packageReferences = (
 				04B1223624ACCC1D0042FB38 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				046C2FA724B382A4007AE923 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = 04E8D98224A68B5000B58F10 /* Products */;
 			projectDirPath = "";
@@ -341,6 +348,7 @@
 				04A0C08624AE7F580090C394 /* QueueView.swift in Sources */,
 				0486340524B0EC5800168A2B /* SearchBar.swift in Sources */,
 				04E8D98924A68B5000B58F10 /* ContentView.swift in Sources */,
+				046C2FA624B22907007AE923 /* Track.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,6 +696,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		046C2FA724B382A4007AE923 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		04B1223624ACCC1D0042FB38 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -699,6 +715,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		046C2FA824B382A4007AE923 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 046C2FA724B382A4007AE923 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
 		04B1223724ACCC1D0042FB38 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 04B1223624ACCC1D0042FB38 /* XCRemoteSwiftPackageReference "Alamofire" */;

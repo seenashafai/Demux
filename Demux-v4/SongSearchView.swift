@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Alamofire
+import SwiftyJSON
 
 struct SongSearchView: View {
     
@@ -14,6 +15,7 @@ struct SongSearchView: View {
     
     var body: some View {
         VStack{
+            var songArray = [Song]()
             Text("Search for a song...")
                 .font(.system(size: 30, weight: .black, design: .default))
                 .padding(10)
@@ -23,11 +25,20 @@ struct SongSearchView: View {
             Button(action: {
                 let query = searchText
                 let authToken = Session.globalSession.authToken
-                trackSearch(query: query, authToken: authToken!)
+                print(query, authToken)
+                var songArray = trackSearch(query: query, authToken: authToken!)
+                print(songArray, "returned")
                 
                 
             }) {
                 Text("Search")
+            }
+            List{
+//                SongRow(song: songArray[0])
+//                SongRow(song: songArray[1])
+//                SongRow(song: songArray[2])
+//                SongRow(song: songArray[3])
+//                SongRow(song: songArray[4])
             }
             
             
@@ -38,8 +49,9 @@ struct SongSearchView: View {
        
 }
 
-func trackSearch(query: String, authToken: String) {
+func trackSearch(query: String, authToken: String) -> [Song] {
     var urlParameters = URLComponents(string: "https://api.spotify.com/v1/search/")!
+    var resultsArray = [Song]()
 
     urlParameters.queryItems = [
         URLQueryItem(name: "q", value: query),
@@ -49,15 +61,32 @@ func trackSearch(query: String, authToken: String) {
     ]
 
     AF.request(urlParameters.url!, method: .get, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer "+authToken]).responseJSON { response in
-        print(response.debugDescription)
-        //Decode response as JSON
-        if let result = response.value {
-            let JSON = result as! NSDictionary
-            let tracks = JSON["tracks"]
-        }
+        switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                resultsArray = arrangeSearchResults(json: json)
+                print(resultsArray)
+            case .failure(let error):
+                print(error)
+            }
     }
+    return resultsArray
 }
 
+func arrangeSearchResults(json: JSON) -> [Song] {
+    var song = Song()
+    var resultsArray: [Song] = []
+    let items = json["tracks"]["items"]
+    
+    for i in 0...4 {
+        song.name = items[i]["name"].string!
+        song.album = items[i]["album"]["name"].string!
+        song.artist = items[i]["album"]["artists"][0]["name"].string!
+        song.id = items[i]["uri"].string!
+        resultsArray.append(song)
+    }
+    return resultsArray
+}
 
 struct SongSearchView_Previews: PreviewProvider {
     static var previews: some View {
