@@ -15,8 +15,6 @@ struct SongSearchView: View {
     @State var songArray = [Song]()
     @State var showingAlert = false
     @State var currentSong = Song()
-
-
     
     var body: some View {
         VStack{
@@ -51,6 +49,7 @@ struct SongSearchView: View {
             }.alert(isPresented: self.$showingAlert) {
                 Alert(title: Text(currentSong.name), message:Text("You are about to add this song to the queue"), primaryButton: .default(Text("Add to Queue")) {
                     //Add to queue
+                    Queue.mainQueue.queueArray.append(currentSong)
             }, secondaryButton: .cancel())
         }
         }

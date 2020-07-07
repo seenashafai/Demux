@@ -10,6 +10,11 @@
 		0446BAA424A68D040053BF07 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E8D9B524A68BB000B58F10 /* SpotifyiOS.framework */; };
 		046C2FA624B22907007AE923 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C2FA524B22907007AE923 /* Track.swift */; };
 		046C2FA924B382A4007AE923 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 046C2FA824B382A4007AE923 /* SwiftyJSON */; };
+		046C2FAB24B41142007AE923 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C2FAA24B41142007AE923 /* Queue.swift */; };
+		046C2FB124B51E17007AE923 /* mongoid.config in Resources */ = {isa = PBXBuildFile; fileRef = 046C2FAD24B51E17007AE923 /* mongoid.config */; };
+		046C2FB224B51E17007AE923 /* Gemfile in Resources */ = {isa = PBXBuildFile; fileRef = 046C2FAE24B51E17007AE923 /* Gemfile */; };
+		046C2FB324B51E17007AE923 /* Gemfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = 046C2FAF24B51E17007AE923 /* Gemfile.lock */; };
+		046C2FB424B51E17007AE923 /* server.rb in Resources */ = {isa = PBXBuildFile; fileRef = 046C2FB024B51E17007AE923 /* server.rb */; };
 		0486340324B0E7F600168A2B /* SongSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486340224B0E7F600168A2B /* SongSearchView.swift */; };
 		0486340524B0EC5800168A2B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486340424B0EC5800168A2B /* SearchBar.swift */; };
 		04A0C08224AE71FC0090C394 /* notes in Resources */ = {isa = PBXBuildFile; fileRef = 04A0C08124AE71FC0090C394 /* notes */; };
@@ -49,6 +54,11 @@
 		0446BA9E24A68C330053BF07 /* Demux-v4-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demux-v4-Bridging-Header.h"; sourceTree = "<group>"; };
 		0446BAA224A68CFA0053BF07 /* ios-sdk-1.2.2.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = "ios-sdk-1.2.2.zip"; path = "../../../../Downloads/ios-sdk-1.2.2.zip"; sourceTree = "<group>"; };
 		046C2FA524B22907007AE923 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		046C2FAA24B41142007AE923 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		046C2FAD24B51E17007AE923 /* mongoid.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mongoid.config; sourceTree = "<group>"; };
+		046C2FAE24B51E17007AE923 /* Gemfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gemfile; sourceTree = "<group>"; };
+		046C2FAF24B51E17007AE923 /* Gemfile.lock */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gemfile.lock; sourceTree = "<group>"; };
+		046C2FB024B51E17007AE923 /* server.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = server.rb; sourceTree = "<group>"; };
 		0486340224B0E7F600168A2B /* SongSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSearchView.swift; sourceTree = "<group>"; };
 		0486340424B0EC5800168A2B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		04A0C08124AE71FC0090C394 /* notes */ = {isa = PBXFileReference; lastKnownFileType = text; path = notes; sourceTree = "<group>"; };
@@ -102,6 +112,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		046C2FAC24B51E17007AE923 /* SongQueue */ = {
+			isa = PBXGroup;
+			children = (
+				046C2FAD24B51E17007AE923 /* mongoid.config */,
+				046C2FAE24B51E17007AE923 /* Gemfile */,
+				046C2FAF24B51E17007AE923 /* Gemfile.lock */,
+				046C2FB024B51E17007AE923 /* server.rb */,
+			);
+			path = SongQueue;
+			sourceTree = "<group>";
+		};
 		04A0C08B24AE83910090C394 /* Queue List */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +141,7 @@
 				04E8D99A24A68B5200B58F10 /* Demux-v4Tests */,
 				04E8D9A524A68B5200B58F10 /* Demux-v4UITests */,
 				04E8D98224A68B5000B58F10 /* Products */,
+				046C2FAC24B51E17007AE923 /* SongQueue */,
 			);
 			sourceTree = "<group>";
 		};
@@ -145,6 +167,7 @@
 				04A0C08124AE71FC0090C394 /* notes */,
 				046C2FA524B22907007AE923 /* Track.swift */,
 				04A0C08324AE74D90090C394 /* Session.swift */,
+				046C2FAA24B41142007AE923 /* Queue.swift */,
 				04E8D98A24A68B5200B58F10 /* Assets.xcassets */,
 				04E8D98F24A68B5200B58F10 /* LaunchScreen.storyboard */,
 				04E8D99224A68B5200B58F10 /* Info.plist */,
@@ -303,8 +326,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046C2FB224B51E17007AE923 /* Gemfile in Resources */,
 				04E8D99124A68B5200B58F10 /* LaunchScreen.storyboard in Resources */,
+				046C2FB424B51E17007AE923 /* server.rb in Resources */,
+				046C2FB324B51E17007AE923 /* Gemfile.lock in Resources */,
 				04E8D98E24A68B5200B58F10 /* Preview Assets.xcassets in Resources */,
+				046C2FB124B51E17007AE923 /* mongoid.config in Resources */,
 				04A0C08224AE71FC0090C394 /* notes in Resources */,
 				04E8D98B24A68B5200B58F10 /* Assets.xcassets in Resources */,
 			);
@@ -334,6 +361,7 @@
 				04A0C08824AE81FB0090C394 /* Song.swift in Sources */,
 				0486340324B0E7F600168A2B /* SongSearchView.swift in Sources */,
 				04A0C08424AE74D90090C394 /* Session.swift in Sources */,
+				046C2FAB24B41142007AE923 /* Queue.swift in Sources */,
 				04E8D98524A68B5000B58F10 /* AppDelegate.swift in Sources */,
 				04A0C09124AE85FE0090C394 /* SongDetail.swift in Sources */,
 				04A0C08A24AE83860090C394 /* SongRow.swift in Sources */,
