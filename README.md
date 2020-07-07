@@ -1,7 +1,7 @@
 # Demux
 Spotify for parties: An app to allow users to queue music to the host's Spotify account. The queue can be voted on by other users, and songs will be moved around the queue accordingly
 
-# Front-end (Swift)
+### Front-end (Swift)
 Dependencies:
 - Alamofire
 - SwiftyJSON
@@ -9,7 +9,7 @@ Dependencies:
 Frameworks:
 - SpotifyiOS
 
-# Back-end (Ruby)
+### Back-end (Ruby)
 Uses a custom Ruby/Sinatra API and a MongoDB database to view and add songs
 Shotgun dependency allows for real-time reloading of server during development process
 
