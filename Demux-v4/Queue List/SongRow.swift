@@ -20,15 +20,3 @@ struct SongRow: View {
     }
 }
 
-struct SongRow_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-//            SongRow(song: TestData.LSF)
-//                .previewLayout(.fixed(width: 300, height: 70))
-//            SongRow(song: TestData.reasonIsTreason)
-//                .previewLayout(.fixed(width: 300, height: 70))
-//            SongRow(song: TestData.shootTheRunner)
-//                .previewLayout(.fixed(width: 300, height: 70))
-        }
-    }
-}
