@@ -18,9 +18,9 @@ struct SongSearchView: View {
     
     var body: some View {
         VStack{
-            
             Text("Search for a song...")
                 .font(.system(size: 30, weight: .black, design: .default))
+                .padding(-20)
             SearchBar(text: $searchText)
             Spacer()
             Spacer()
@@ -37,6 +37,14 @@ struct SongSearchView: View {
                 
             }) {
                 Text("Search")
+                    .fontWeight(.bold)
+                    .font(.system(size: 20))
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                        .background(Color.green)
+                        .foregroundColor(.black)
+                        .cornerRadius(20)
+                        .padding(5)
             }
                 List(songArray) { song in
                     Button(action: {
@@ -58,7 +66,7 @@ struct SongSearchView: View {
             }, secondaryButton: .cancel())
         }
         }
-            
+        
     }
     // Dismiss the keyboard
 
