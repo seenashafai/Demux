@@ -23,7 +23,7 @@ struct ContentView: View {
                     Text("Search for a song?")
                 }
 
-                NavigationLink(destination: QueueView(searchText: text)) {
+                NavigationLink(destination: QueueView(searchText: text, isLoading: true)) {
                     Text("Host a party")
                         .fontWeight(.bold)
                             .font(.title)

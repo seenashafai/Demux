@@ -15,6 +15,7 @@ struct QueueView: View {
     @State var queueArray = [Song]()
     @State var currentSong = Song()
     @State var showingAlert = false
+    @State var isLoading: Bool
 
     var body: some View {
         VStack {
@@ -26,23 +27,6 @@ struct QueueView: View {
             
             Spacer()
             
-            //Load queue (temporary)
-            Button(action: {
-                loadQueue() { song in
-                    queueArray = song
-                }
-            }) {
-                Text("Refresh")
-                    .fontWeight(.bold)
-                    .font(.system(size: 20))
-                    .padding(.horizontal, 15)
-                    .padding(.vertical, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                        .background(Color.green)
-                        .foregroundColor(.black)
-                        .cornerRadius(20)
-                        .padding(5)
-            }
-            //
             List(queueArray) { song in
                 Button(action: {
                     print("alert")
@@ -55,18 +39,23 @@ struct QueueView: View {
         }.alert(isPresented: self.$showingAlert) {
             Alert(title: Text(currentSong.name), message:Text("You are about to delete this song from the queue"), primaryButton: .destructive(Text("Delete")) {
                 //Delete from queue
-                removeFromQueue(song: currentSong)
+                queueArray = removeFromQueue(song: currentSong)
+                //Refresh queue
+                loadQueue() { song in
+                    queueArray = song
+                }
                 //Clear search bar
                 searchText = ""
             }, secondaryButton: .cancel())
         }
+        }.onAppear {
+            isLoading = true
+            loadQueue() { song in
+                queueArray = song
+                isLoading = false
+            }
         }
     }
-}
-
-func queueConfig()
-{
-    
 }
 
 func loadQueue(completion: @escaping ([Song]) -> Void)  {
@@ -76,7 +65,9 @@ func loadQueue(completion: @escaping ([Song]) -> Void)  {
         switch response.result {
             case .success(let value):
                 let json = JSON(value)
-                array = assignSearchResults(json: json)
+                let count = json.count
+                print(count, "count")
+                array = assignSearchResults(json: json, count: count)
                 completion(array)
             case .failure(let error):
                 print(error)
@@ -84,11 +75,11 @@ func loadQueue(completion: @escaping ([Song]) -> Void)  {
     }
 }
 
-func assignSearchResults(json: JSON) -> [Song] {
+func assignSearchResults(json: JSON, count: Int) -> [Song] {
     var song = Song()
     var resultsArray: [Song] = []
     
-    for i in 0...5 {
+    for i in 0...(count-1) {
         song.name = json[i]["name"].string!
         song.album = json[i]["album"].string!
         song.artist = json[i]["artist"].string!
@@ -99,17 +90,18 @@ func assignSearchResults(json: JSON) -> [Song] {
     return resultsArray
 }
 
-func removeFromQueue(song: Song) {
-    let endpoint = "http://localhost:9393/songs"
-//    let params = [:]
-//    AF.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default).response { response in
-//        print(response)
-//    }
+func removeFromQueue(song: Song) -> [Song] {
+    let id = song.id
+    var array = [Song]()
+    let removeURL = "http://localhost:9393/songs/\(id)"
+    AF.request(removeURL, method: .delete).response { response in
+        print(response)
+    }
+    return array
 }
-
 
 struct QueueView_Previews: PreviewProvider {
     static var previews: some View {
-        QueueView(searchText: "")
+        QueueView(searchText: "", isLoading: false)
     }
 }

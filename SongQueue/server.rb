@@ -67,3 +67,9 @@ post '/songs' do
       status 422 #Fail
     end
 end
+
+delete '/songs/:id' do |id|
+    song = Song.where(id: id).first
+    song.destroy if song
+    status 204
+  end
