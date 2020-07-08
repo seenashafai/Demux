@@ -19,14 +19,24 @@ struct QueueView: View {
 
     var body: some View {
         VStack {
+            HStack {
             //Filtering
-            Text("Search for a song...")
+            Text("Search for a song")
                 .font(.system(size: 30, weight: .black, design: .default))
-                .padding(-20)
-            SearchBar(text: $searchText)
+                .padding(.top, -20)
+                .padding(.leading, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+            
             
             Spacer()
-            
+            NavigationLink(destination: PlayerView()) {
+                Image(systemName: "play.circle.fill")
+                    .font(.largeTitle)
+                    .foregroundColor(.purple)
+                    .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                    .padding(.top, -15)
+                }
+            }
+            SearchBar(text: $searchText)
             List(queueArray) { song in
                 Button(action: {
                     print("alert")
