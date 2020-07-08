@@ -1,6 +1,8 @@
 # server.rb
 require 'sinatra'
 require 'mongoid'
+require 'json'
+require 'uri'
 
 #DB Setup
 Mongoid.load! "mongoid.config"
@@ -40,6 +42,8 @@ helpers do
     #define custom json decoder
     def json_params
       begin
+#        jsonBody = URI.decode_www_form_component(request.body.read)
+#        p jsonBody
         JSON.parse(request.body.read)
       rescue
         halt 400, { message:'Invalid JSON' }.to_json

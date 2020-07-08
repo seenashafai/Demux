@@ -45,6 +45,7 @@ GEM
     tilt (2.0.10)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
+    uri (0.10.0)
     zeitwerk (2.3.1)
 
 PLATFORMS
@@ -55,6 +56,7 @@ DEPENDENCIES
   shotgun
   sinatra
   sinatra-contrib
+  uri
 
 BUNDLED WITH
    1.17.2

@@ -18,11 +18,11 @@ struct SongSearchView: View {
     
     var body: some View {
         VStack{
+            
             Text("Search for a song...")
                 .font(.system(size: 30, weight: .black, design: .default))
-                .padding(10)
-            
             SearchBar(text: $searchText)
+            Spacer()
             Spacer()
             
             Button(action: {
@@ -50,6 +50,11 @@ struct SongSearchView: View {
                 Alert(title: Text(currentSong.name), message:Text("You are about to add this song to the queue"), primaryButton: .default(Text("Add to Queue")) {
                     //Add to queue
                     Queue.mainQueue.queueArray.append(currentSong)
+                    addToQueue(song: currentSong)
+                    //Clear search bar and results
+                    searchText = ""
+                    songArray.removeAll()
+
             }, secondaryButton: .cancel())
         }
         }
@@ -58,6 +63,19 @@ struct SongSearchView: View {
     // Dismiss the keyboard
 
        
+}
+
+func addToQueue(song: Song) {
+    let endpoint = "http://localhost:9393/songs"
+    let params = [
+        "id": song.id,
+        "name": song.name,
+        "artist": song.artist,
+        "album": song.album
+    ]
+    AF.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default).response { response in
+        print(response)
+    }
 }
 
 func trackSearch(query: String, authToken: String, completion: @escaping ([Song]) -> Void) {
