@@ -23,10 +23,7 @@ struct ContentView: View {
                     Text("Search for a song?")
                 }
 
-                Button(action: {
-                    print(Session.globalSession.authToken, "authToken")
-                                        
-                }) {
+                NavigationLink(destination: QueueView(searchText: text)) {
                     Text("Host a party")
                         .fontWeight(.bold)
                             .font(.title)

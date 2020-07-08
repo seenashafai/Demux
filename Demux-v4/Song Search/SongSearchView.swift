@@ -23,7 +23,6 @@ struct SongSearchView: View {
                 .padding(-20)
             SearchBar(text: $searchText)
             Spacer()
-            Spacer()
             
             Button(action: {
                 //Init query and token for track search
@@ -33,8 +32,6 @@ struct SongSearchView: View {
                 trackSearch(query: query, authToken: authToken!) { songs in
                     songArray = songs
                 }
-                
-                
             }) {
                 Text("Search")
                     .fontWeight(.bold)
@@ -65,11 +62,7 @@ struct SongSearchView: View {
             }, secondaryButton: .cancel())
         }
         }
-        
     }
-    // Dismiss the keyboard
-
-       
 }
 
 func addToQueue(song: Song) {
