@@ -18,3 +18,6 @@ Dependencies:
 - Mongoid
 - Shotgun
 
+### Notes
+Xcode is currently set to allow unsecure http communication in Info.plist: 'App Transport Security Settings -> Allow Arbitrary Loads = true'
+This is to allow for local debugging of the API during development. For release, the API will have to be hosted on a dedicated server, and this setting can be set back to false/removed altogether
