@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0446BAA424A68D040053BF07 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E8D9B524A68BB000B58F10 /* SpotifyiOS.framework */; };
-		046C2FA624B22907007AE923 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C2FA524B22907007AE923 /* Track.swift */; };
 		046C2FA924B382A4007AE923 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 046C2FA824B382A4007AE923 /* SwiftyJSON */; };
-		046C2FAB24B41142007AE923 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C2FAA24B41142007AE923 /* Queue.swift */; };
 		046C2FB124B51E17007AE923 /* mongoid.config in Resources */ = {isa = PBXBuildFile; fileRef = 046C2FAD24B51E17007AE923 /* mongoid.config */; };
 		046C2FB224B51E17007AE923 /* Gemfile in Resources */ = {isa = PBXBuildFile; fileRef = 046C2FAE24B51E17007AE923 /* Gemfile */; };
 		046C2FB324B51E17007AE923 /* Gemfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = 046C2FAF24B51E17007AE923 /* Gemfile.lock */; };
@@ -21,7 +19,6 @@
 		04A0C08424AE74D90090C394 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A0C08324AE74D90090C394 /* Session.swift */; };
 		04A0C08824AE81FB0090C394 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A0C08724AE81FB0090C394 /* Song.swift */; };
 		04A0C08A24AE83860090C394 /* SongRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A0C08924AE83860090C394 /* SongRow.swift */; };
-		04A0C09124AE85FE0090C394 /* SongDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A0C09024AE85FE0090C394 /* SongDetail.swift */; };
 		04B1223824ACCC1D0042FB38 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 04B1223724ACCC1D0042FB38 /* Alamofire */; };
 		04E8D98524A68B5000B58F10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E8D98424A68B5000B58F10 /* AppDelegate.swift */; };
 		04E8D98724A68B5000B58F10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E8D98624A68B5000B58F10 /* SceneDelegate.swift */; };
@@ -53,8 +50,6 @@
 /* Begin PBXFileReference section */
 		0446BA9E24A68C330053BF07 /* Demux-v4-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demux-v4-Bridging-Header.h"; sourceTree = "<group>"; };
 		0446BAA224A68CFA0053BF07 /* ios-sdk-1.2.2.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = "ios-sdk-1.2.2.zip"; path = "../../../../Downloads/ios-sdk-1.2.2.zip"; sourceTree = "<group>"; };
-		046C2FA524B22907007AE923 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
-		046C2FAA24B41142007AE923 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		046C2FAD24B51E17007AE923 /* mongoid.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mongoid.config; sourceTree = "<group>"; };
 		046C2FAE24B51E17007AE923 /* Gemfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gemfile; sourceTree = "<group>"; };
 		046C2FAF24B51E17007AE923 /* Gemfile.lock */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gemfile.lock; sourceTree = "<group>"; };
@@ -65,7 +60,6 @@
 		04A0C08324AE74D90090C394 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		04A0C08724AE81FB0090C394 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		04A0C08924AE83860090C394 /* SongRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongRow.swift; sourceTree = "<group>"; };
-		04A0C09024AE85FE0090C394 /* SongDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetail.swift; sourceTree = "<group>"; };
 		04E8D98124A68B5000B58F10 /* Demux-v4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demux-v4.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E8D98424A68B5000B58F10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04E8D98624A68B5000B58F10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,14 +117,15 @@
 			path = SongQueue;
 			sourceTree = "<group>";
 		};
-		04A0C08B24AE83910090C394 /* Queue List */ = {
+		04A0C08B24AE83910090C394 /* Song Search */ = {
 			isa = PBXGroup;
 			children = (
+				0486340224B0E7F600168A2B /* SongSearchView.swift */,
+				0486340424B0EC5800168A2B /* SearchBar.swift */,
 				04A0C08924AE83860090C394 /* SongRow.swift */,
 				04A0C08724AE81FB0090C394 /* Song.swift */,
-				04A0C09024AE85FE0090C394 /* SongDetail.swift */,
 			);
-			path = "Queue List";
+			path = "Song Search";
 			sourceTree = "<group>";
 		};
 		04E8D97824A68B5000B58F10 = {
@@ -161,13 +156,9 @@
 				04E8D98424A68B5000B58F10 /* AppDelegate.swift */,
 				04E8D98624A68B5000B58F10 /* SceneDelegate.swift */,
 				04E8D98824A68B5000B58F10 /* ContentView.swift */,
-				0486340224B0E7F600168A2B /* SongSearchView.swift */,
-				0486340424B0EC5800168A2B /* SearchBar.swift */,
-				04A0C08B24AE83910090C394 /* Queue List */,
+				04A0C08B24AE83910090C394 /* Song Search */,
 				04A0C08124AE71FC0090C394 /* notes */,
-				046C2FA524B22907007AE923 /* Track.swift */,
 				04A0C08324AE74D90090C394 /* Session.swift */,
-				046C2FAA24B41142007AE923 /* Queue.swift */,
 				04E8D98A24A68B5200B58F10 /* Assets.xcassets */,
 				04E8D98F24A68B5200B58F10 /* LaunchScreen.storyboard */,
 				04E8D99224A68B5200B58F10 /* Info.plist */,
@@ -361,14 +352,11 @@
 				04A0C08824AE81FB0090C394 /* Song.swift in Sources */,
 				0486340324B0E7F600168A2B /* SongSearchView.swift in Sources */,
 				04A0C08424AE74D90090C394 /* Session.swift in Sources */,
-				046C2FAB24B41142007AE923 /* Queue.swift in Sources */,
 				04E8D98524A68B5000B58F10 /* AppDelegate.swift in Sources */,
-				04A0C09124AE85FE0090C394 /* SongDetail.swift in Sources */,
 				04A0C08A24AE83860090C394 /* SongRow.swift in Sources */,
 				04E8D98724A68B5000B58F10 /* SceneDelegate.swift in Sources */,
 				0486340524B0EC5800168A2B /* SearchBar.swift in Sources */,
 				04E8D98924A68B5000B58F10 /* ContentView.swift in Sources */,
-				046C2FA624B22907007AE923 /* Track.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

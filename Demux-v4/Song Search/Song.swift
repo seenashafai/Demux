@@ -14,13 +14,5 @@ struct Song: Identifiable {
     var name: String = ""
     var artist: String = ""
     var album: String = ""
-//    
-//    init(id: String, name: String, artist: String, album: String) {
-//        self.id = id
-//        self.name = name
-//        self.artist = artist
-//        self.album = album
-//    }
-//
-//    
+
 }
