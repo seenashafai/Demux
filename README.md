@@ -7,7 +7,7 @@ Dependencies:
 - AlamofireImage
 - SwiftyJSON
 
-(Will try to phase out these dependencies once everything is working as they can all be replicated with native code)
+(Will try to phase out these dependencies once everything is working; they can all be replicated with native code)
 
 Frameworks:
 - SpotifyiOS
