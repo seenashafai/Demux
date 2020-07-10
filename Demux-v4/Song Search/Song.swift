@@ -122,13 +122,14 @@ struct Song: Identifiable {
     }
     
     //Remove song from queue
-    func removeFromQueue(song: Song)  {
+    func removeFromQueue(song: Song) -> [Song] {
         let id = song.id
         let array = [Song]()
         let removeURL = "http://localhost:9393/songs/\(id)"
         AF.request(removeURL, method: .delete).response { response in
             print(response)
         }
+        return array
     }
 
 }
