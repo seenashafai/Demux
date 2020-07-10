@@ -6,6 +6,7 @@ Dependencies:
 - Alamofire
 - AlamofireImage
 - SwiftyJSON
+- URLImage
 
 (Will try to phase out these dependencies once everything is working; they can all be replicated with native code)
 
