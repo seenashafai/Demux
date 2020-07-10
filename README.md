@@ -4,7 +4,10 @@ Spotify for parties: An app to allow users to queue music to the host's Spotify 
 ### Front-end (Swift)
 Dependencies:
 - Alamofire
+- AlamofireImage
 - SwiftyJSON
+
+(Will try to phase out these dependencies once everything is working; they can all be replicated with native code)
 
 Frameworks:
 - SpotifyiOS
