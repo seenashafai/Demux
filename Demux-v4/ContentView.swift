@@ -13,17 +13,19 @@ struct ContentView: View {
     let userInfoEndpoint = "https://api.spotify.com/v1/me/"
     let redirectURI = "demux://callback/"
     @State var text: String
+    @State var joinCode: String
 
     var body: some View {
         NavigationView {
             VStack {
                 WelcomeText()
+                
                 //Transition to search view
                 NavigationLink(destination: SongSearchView(searchText: text)) {
                     Text("Search for a song?")
                 }
 
-                NavigationLink(destination: QueueView(searchText: text, isLoading: true)) {
+                NavigationLink(destination: QueueView(searchText: text, isLoading: true, code: "")) {
                     Text("Host a party")
                         .fontWeight(.bold)
                             .font(.title)
@@ -33,6 +35,13 @@ struct ContentView: View {
                             .cornerRadius(20)
                             .padding(10)
                     }
+                TextField("Enter join code", text: $joinCode)
+                    .padding(7)
+                    .padding(.horizontal, 25)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(8)
+                    
+
                 Button(action: {
                     //TODO: - add guard statement for accesstoken...
                     AF.request(userInfoEndpoint, method: .get, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer "+Session.globalSession.authToken!]).responseJSON { response in
@@ -46,7 +55,7 @@ struct ContentView: View {
 
                     
                 }) {
-                    Text("Join a party")
+                    Text("Join party")
                         .fontWeight(.bold)
                             .font(.title)
                             .padding()

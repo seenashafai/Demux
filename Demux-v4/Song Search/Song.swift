@@ -14,5 +14,6 @@ struct Song: Identifiable {
     var name: String = ""
     var artist: String = ""
     var album: String = ""
+    var albumImage: String = ""
 
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04405A4524B7A329003B62CB /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 04405A4424B7A329003B62CB /* AlamofireImage */; };
+		04405A4A24B7C0A0003B62CB /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 04405A4924B7C0A0003B62CB /* URLImage */; };
 		0446BAA424A68D040053BF07 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E8D9B524A68BB000B58F10 /* SpotifyiOS.framework */; };
 		046C2FA924B382A4007AE923 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 046C2FA824B382A4007AE923 /* SwiftyJSON */; };
 		046C2FB124B51E17007AE923 /* mongoid.config in Resources */ = {isa = PBXBuildFile; fileRef = 046C2FAD24B51E17007AE923 /* mongoid.config */; };
@@ -88,7 +90,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				046C2FA924B382A4007AE923 /* SwiftyJSON in Frameworks */,
+				04405A4524B7A329003B62CB /* AlamofireImage in Frameworks */,
 				0446BAA424A68D040053BF07 /* SpotifyiOS.framework in Frameworks */,
+				04405A4A24B7C0A0003B62CB /* URLImage in Frameworks */,
 				04B1223824ACCC1D0042FB38 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,6 +242,8 @@
 			packageProductDependencies = (
 				04B1223724ACCC1D0042FB38 /* Alamofire */,
 				046C2FA824B382A4007AE923 /* SwiftyJSON */,
+				04405A4424B7A329003B62CB /* AlamofireImage */,
+				04405A4924B7C0A0003B62CB /* URLImage */,
 			);
 			productName = "Demux-v4";
 			productReference = 04E8D98124A68B5000B58F10 /* Demux-v4.app */;
@@ -314,6 +320,8 @@
 			packageReferences = (
 				04B1223624ACCC1D0042FB38 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				046C2FA724B382A4007AE923 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				04405A4324B7A329003B62CB /* XCRemoteSwiftPackageReference "AlamofireImage" */,
+				04405A4824B7C0A0003B62CB /* XCRemoteSwiftPackageReference "url-image" */,
 			);
 			productRefGroup = 04E8D98224A68B5000B58F10 /* Products */;
 			projectDirPath = "";
@@ -720,6 +728,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		04405A4324B7A329003B62CB /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
+		04405A4824B7C0A0003B62CB /* XCRemoteSwiftPackageReference "url-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmytro-anokhin/url-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.18;
+			};
+		};
 		046C2FA724B382A4007AE923 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
@@ -739,6 +763,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		04405A4424B7A329003B62CB /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04405A4324B7A329003B62CB /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
+		};
+		04405A4924B7C0A0003B62CB /* URLImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04405A4824B7C0A0003B62CB /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImage;
+		};
 		046C2FA824B382A4007AE923 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 046C2FA724B382A4007AE923 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;

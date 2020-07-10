@@ -71,10 +71,12 @@ func addToQueue(song: Song) {
         "id": song.id,
         "name": song.name,
         "artist": song.artist,
-        "album": song.album
+        "album": song.album,
+        "image": song.albumImage
     ]
     AF.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default).response { response in
         print(response)
+        print(response.request?.httpBody)
     }
 }
 
@@ -111,6 +113,7 @@ func arrangeSearchResults(json: JSON) -> [Song] {
         song.album = items[i]["album"]["name"].string!
         song.artist = items[i]["album"]["artists"][0]["name"].string!
         song.id = items[i]["uri"].string!
+        song.albumImage = items[i]["album"]["images"][0]["url"].string!
         resultsArray.append(song)
     }
     print(resultsArray)

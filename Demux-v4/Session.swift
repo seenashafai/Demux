@@ -13,4 +13,7 @@ class Session {
     static let globalSession = Session()
     
     public var authToken: String?
+    public var currentSong: Song?
 }
+
+

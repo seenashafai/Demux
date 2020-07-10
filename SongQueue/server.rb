@@ -16,12 +16,18 @@ class Song
   field :name, type: String
   field :artist, type: String
   field :album, type: String
-
+  field :image, type: String
+  
   validates :id, presence: true
   validates :name, presence: true
   validates :artist, presence: true
   validates :album, presence: true
+  validates :image, presence: true
+
+
+  
 end
+
 
 #Default endpoint
 get '/' do
@@ -59,6 +65,8 @@ end
 #Add a song
 post '/songs' do
     song = Song.new(json_params)
+    sessionID = params[:sessionID]
+    p sessionID
     if song.save
       #Return location of new song
       response.headers['Location'] = "#{base_url}/songs/#{song.id}"

@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     
     //MARK: - SPTAppRemoteDelegate
     func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
-        print("connected")
+        print("app remote connected")
     }
     
     func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
@@ -76,7 +76,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView(text: "")
+        let contentView = ContentView(text: "", joinCode: "")
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
