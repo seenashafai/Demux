@@ -6,16 +6,15 @@
 //
 
 import SwiftUI
-import Alamofire
-import SwiftyJSON
 
 struct SongSearchView: View {
+    
+    let song = Song()
     
     @State var searchText: String
     @State var songArray = [Song]()
     @State var showingAlert = false
     @State var currentSong = Song()
-    let song = Song()
     
     var body: some View {
         VStack{
@@ -43,15 +42,15 @@ struct SongSearchView: View {
                         .foregroundColor(.black)
                         .cornerRadius(20)
                         .padding(5)
-            }
-                List(songArray) { song in
-                    Button(action: {
-                    print("alert")
-                        self.showingAlert = true
-                        self.currentSong = song
-                    }) {
-                        SongRow(song: song)
-                    }
+                }
+            List(songArray) { song in
+                Button(action: {
+                print("alert")
+                    self.showingAlert = true
+                    self.currentSong = song
+                }) {
+                    SongRow(song: song)
+                }
             }.alert(isPresented: self.$showingAlert) {
                 Alert(title: Text(currentSong.name), message:Text("You are about to add this song to the queue"), primaryButton: .default(Text("Add to Queue")) {
                     //Add to queue
@@ -60,8 +59,8 @@ struct SongSearchView: View {
                     searchText = ""
                     songArray.removeAll()
 
-            }, secondaryButton: .cancel())
-        }
+                }, secondaryButton: .cancel())
+            }
         }
     }
 }

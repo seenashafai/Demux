@@ -3,7 +3,7 @@
 //  Demux-v4
 //
 //  Created by Seena Shafai on 08/07/2020.
-//
+// THIS DOESNT DO ANYTHING ANYMORE
 
 import SwiftUI
 import Alamofire
@@ -14,6 +14,7 @@ import URLImage
 struct PlayerView: View {
     
     let scenedelegate = SceneDelegate()
+    let song = Song()
     let qV = QueueView(searchText: "", isLoading: false, code: "")
     @State var currentSong: Song?
     var currentImage: String?
@@ -44,11 +45,6 @@ struct PlayerView: View {
                 })
                     .frame(width: 130.0, height: 130.0)
             Text("Now playing...")
-            
-            
-            
-
-            
             
             Spacer()
             HStack {
@@ -83,31 +79,14 @@ struct PlayerView: View {
                             .foregroundColor(.purple)
                             .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                             .padding(.top, -15)
+                    }
                 }
             }
-        }.onAppear {
-//            getSong() { song in
-//                currentSong = song
-            }
         }
     }
 
 
-func fetchImage(imgURL: URL, completion: @escaping (UIImage) -> Void)  {
-    var image: UIImage?
-    AF.request(imgURL).responseImage { response in
 
-        print(response.request)
-        print(response.response)
-        debugPrint(response.result)
-
-        if case .success(let download) = response.result {
-            print("image downloaded: \(download)")
-            completion(download)
-        }
-    }
-    
-}
 
 func getSong(completion: @escaping (Song) -> Void) {
     var song = Song()
@@ -123,7 +102,7 @@ func getSong(completion: @escaping (Song) -> Void) {
                 completion(song)
             case .failure(let error):
                 print(error)
-            }
+        }
     }
 }
 
@@ -135,7 +114,7 @@ func sortResults(json: JSON) -> Song {
         song.album = item["album"].string!
         song.artist = item["artist"].string!
         song.id = item["id"].string!
-    song.albumImage = item["image"].string!
+        song.albumImage = item["image"].string!
     
     return song
 }
