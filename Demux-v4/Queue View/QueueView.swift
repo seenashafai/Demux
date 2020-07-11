@@ -15,8 +15,12 @@ struct QueueView: View {
     
     let scenedelegate = SceneDelegate()
     let song = Song()
+    var playerState: SPTAppRemotePlayerState?
+
     @State var currentPlaying = Song()
     @State var currentPlayingIndex: Int
+    @State var isPlaying = Bool()
+    @State var isPartyActive = Bool()
     
     @State var searchText: String
     @State var queueArray = [Song]()
@@ -25,6 +29,8 @@ struct QueueView: View {
     @State var isLoading: Bool
     @State var code: String
     @State var showingPlayer = false
+    
+    
 
     var body: some View {
         ZStack {
@@ -86,8 +92,8 @@ struct QueueView: View {
                 ZStack {
                     Color.black.opacity(0.4)
                         .edgesIgnoringSafeArea(.vertical)
-                    // This VStack is the popup
-                    VStack(spacing: 20) {
+                    // Begin popup
+                    VStack {
                         Text("Spotify Player")
                             .bold().padding()
                             .frame(maxWidth: .infinity)
@@ -95,68 +101,112 @@ struct QueueView: View {
                             .foregroundColor(Color.white)
                         Spacer()
                         VStack {
-                            Text("Start party")
-                                .padding(.top, 15)
-                            Button(action: {
-                                print("Start Party")
-                                currentPlayingIndex = 0
-                                scenedelegate.appRemote.authorizeAndPlayURI(queueArray[currentPlayingIndex].id)
-                                
-                            }) {
-                                Image(systemName: "dot.radiowaves.left.and.right")
-                                    .font(.largeTitle)
-                                    .foregroundColor(.purple)
-                                    .padding(.top, 10)
+                            if !self.isPartyActive {
+                                Text("Start party")
+                                    .padding(.top, 15)
+                                Button(action: {
+                                    print("Start Party")
+                                    currentPlayingIndex = 0
+                                    remote().authorizeAndPlayURI(queueArray[currentPlayingIndex].id)
+                                    isPlaying = true
+                                    isPartyActive = true
+                                    
+                                }) {
+                                    Image(systemName: "dot.radiowaves.left.and.right")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.green)
+                                        .padding(.top, 10)
+                                }
+                            } else {
+                                Text("Stop party")
+                                    .padding(.top, 15)
+                                Button(action: {
+                                    print("stop party ")
+                                    //remote().playerAPI?.pause(defaultCallback)
+                                    remote().disconnect()
+                                    isPlaying = false
+                                    isPartyActive = false
+                                }) {
+                                    Image(systemName: "dot.radiowaves.left.and.right")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.red)
+                                        .padding(.top, 10)
+                                        .opacity(0.4)
+                                }
                             }
                             Spacer()
+                            if self.isPlaying {
+                                Text("Now playing...")
+                                //Album image
+                                let url = URL(string: queueArray[currentPlayingIndex].albumImage)
+                                URLImage(url!,
+                                         processors: [ Resize(size: CGSize(width: 100.0, height: 100.0), scale: UIScreen.main.scale) ],
+                                         content:  {
+                                            $0.image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .clipped()
+                                         })
+                                    .frame(width: 130.0, height: 130.0)
+                            }
+
                             
-                            //Album image
-                            let url = URL(string: queueArray[currentPlayingIndex].albumImage)
-                            URLImage(url!,
-                                     processors: [ Resize(size: CGSize(width: 100.0, height: 100.0), scale: UIScreen.main.scale) ],
-                                     content:  {
-                                        $0.image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .clipped()
-                                     })
-                                .frame(width: 130.0, height: 130.0)
-                            Text("Now playing...")
                             
                             Spacer()
-                            HStack {
-                                Button(action: {
-                                    print("fast forward button pressed")
-                                    currentPlayingIndex = currentPlayingIndex + 1
-                                    //queueArray = refreshQueue(array: queueArray)
-                                    
-                                }) {
-                                    Image(systemName: "forward.fill")
-                                        .font(.largeTitle)
-                                        .foregroundColor(.purple)
-                                        .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                                        .padding(.top, -15)
-                                }
-                                Button(action: {
-                                    print("play button pressed")
-                                    
-                                }) {
-                                    Image(systemName: "playpause.fill")
-                                        .font(.largeTitle)
-                                        .foregroundColor(.purple)
-                                        .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                                        .padding(.top, -15)
-                                }
-                                Button(action: {
-                                    print("rewind button pressed")
-                                    currentPlayingIndex = currentPlayingIndex - 1
+                            if self.isPartyActive {
+                                HStack {
+                                    Button(action: {
+                                        print("rewind button pressed")
+                                        currentPlayingIndex = currentPlayingIndex - 1
+                                        //remoteCheck()
+                                        remote().playerAPI?.enqueueTrackUri(queueArray[currentPlayingIndex].id, callback: defaultCallback)
+                                        remote().playerAPI?.skip(toNext: defaultCallback)
+                                        //remote().playerAPI?.play(queueArray[currentPlayingIndex].id, callback: defaultCallback)
 
-                                }) {
-                                    Image(systemName: "backward.fill")
-                                        .font(.largeTitle)
-                                        .foregroundColor(.purple)
-                                        .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                                        .padding(.top, -15)
+                                    }) {
+                                        Image(systemName: "backward.fill")
+                                            .font(.largeTitle)
+                                            .foregroundColor(.purple)
+                                            .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                            .padding(.top, -15)
+                                    }
+                                    
+                                    Button(action: {
+                                        print("play/pause button pressed")
+                                        remoteCheck()
+                                        if isPlaying {
+                                            remote().playerAPI?.pause(defaultCallback)
+                                            print("pause")
+                                            isPlaying = false
+                                        } else {
+                                            remote().playerAPI?.resume(defaultCallback)
+                                            print("play")
+                                            isPlaying = true
+                                        }
+                                        
+                                        
+                                    }) {
+                                        Image(systemName: "playpause.fill")
+                                            .font(.largeTitle)
+                                            .foregroundColor(.purple)
+                                            .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                            .padding(.top, -15)
+                                    }
+                                    
+                                    Button(action: {
+                                        //remoteCheck()
+                                        print("fast forward button pressed")
+                                        currentPlayingIndex = currentPlayingIndex + 1
+                                        remote().playerAPI?.enqueueTrackUri(queueArray[currentPlayingIndex].id, callback: defaultCallback)
+                                        remote().playerAPI?.skip(toNext: defaultCallback)
+                                        
+                                    }) {
+                                        Image(systemName: "forward.fill")
+                                            .font(.largeTitle)
+                                            .foregroundColor(.purple)
+                                            .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                            .padding(.top, -15)
+                                    }
                                 }
                             }
                         }
@@ -176,6 +226,38 @@ struct QueueView: View {
     }
 }
 
+func remote() -> SPTAppRemote{
+    
+    var appRemote: SPTAppRemote? {
+            get {
+                return (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.appRemote
+            }
+        }
+    return appRemote!
+}
+
+func remoteCheck() {
+    if !remote().isConnected {
+        print("remote not connected")
+    } else {
+        print("remote already connected")
+    }
+}
+
+var defaultCallback: SPTAppRemoteCallback {
+        get {
+            print("yo")
+            return {success, error in
+                if let error = error {
+                    print(error)
+                } else {
+                    print(success.debugDescription)
+                }
+            }
+        }
+    }
+
+
 func refreshQueue(array: [Song]) -> [Song] {
     var refreshedArray = [Song]()
     for song in array {
@@ -186,6 +268,19 @@ func refreshQueue(array: [Song]) -> [Song] {
     return refreshedArray
 }
 
+
+//MARK: - SPTAppRemotePlayerStateDelegate
+func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
+    print("player state changed")
+}
+
+private func getPlayerState() {
+        remote().playerAPI?.getPlayerState { (result, error) -> Void in
+            guard error == nil else { return }
+
+            let playerState = result as! SPTAppRemotePlayerState
+        }
+    }
 
 //Generate join code
 func randomString() -> String {

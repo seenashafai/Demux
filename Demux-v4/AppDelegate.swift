@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
         print("success")
         Session.globalSession.authToken = session.accessToken
-        scenedelegate.appRemote.connectionParameters.accessToken = session.accessToken
+        //scenedelegate.appRemote.connectionParameters.accessToken = session.accessToken
         
         //scenedelegate.appRemote.connect()
     }
@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
         //Add swap config
         self.configuration.tokenSwapURL = tokenSwapURL
         self.configuration.tokenRefreshURL = tokenRefreshURL
-        //self.configuration.playURI = "spotify:track:4baAwbpkroYCwSIlaqzNXy" //Shoot the Runner
+        //self.configuration.playURI = ""
         print("config complete")
     }
         //Initialize session manager

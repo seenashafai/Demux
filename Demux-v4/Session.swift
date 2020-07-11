@@ -14,6 +14,7 @@ class Session {
     
     public var authToken: String?
     public var currentSong: Song?
+    public var server = "http://893471326d2d.ngrok.io"
 }
 
 

@@ -25,7 +25,9 @@ struct PlayerView: View {
                 .padding(.top, 15)
             Button(action: {
                 print("Start Party")
-                scenedelegate.appRemote.authorizeAndPlayURI(currentSong!.id)
+                //remote().authorizeAndPlayURI(currentSong!.id)
+                remote().connect()
+                
 
             }) {
             Image(systemName: "dot.radiowaves.left.and.right")
@@ -90,7 +92,7 @@ struct PlayerView: View {
 
 func getSong(completion: @escaping (Song) -> Void) {
     var song = Song()
-    let endpoint = "http://localhost:9393/songs"
+    let endpoint = "\(Session.globalSession.server)/songs"
     
     AF.request(endpoint, method:. get, encoding: JSONEncoding.default).responseJSON { response in
         switch response.result {

@@ -63,7 +63,7 @@ struct Song: Identifiable, Equatable {
     
     //Add a song to the API queue
     func addToQueue(song: Song) {
-        let endpoint = "http://localhost:9393/songs"
+        let endpoint = "\(Session.globalSession.server)/songs"
         let params = [
             "id": song.id,
             "name": song.name,
@@ -88,7 +88,7 @@ struct Song: Identifiable, Equatable {
     
     //Load queue from API, return queue array
     func loadQueue(completion: @escaping ([Song]) -> Void)  {
-        let endpoint = "http://localhost:9393/songs"
+        let endpoint = "\(Session.globalSession.server)/songs"
         var array = [Song]()
         AF.request(endpoint, method:. get, encoding: JSONEncoding.default).responseJSON { response in
             switch response.result {
@@ -124,7 +124,7 @@ struct Song: Identifiable, Equatable {
     func removeFromQueue(song: Song) -> [Song] {
         let id = song.id
         let array = [Song]()
-        let removeURL = "http://localhost:9393/songs/\(id)"
+        let removeURL = "\(Session.globalSession.server)/songs/\(id)"
         AF.request(removeURL, method: .delete).response { response in
             print(response)
         }

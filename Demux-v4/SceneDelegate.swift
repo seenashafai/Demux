@@ -19,7 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     //MARK: - SPTAppRemoteDelegate
     func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
         print("app remote connected")
+        self.appRemote.playerAPI?.delegate = self
+          self.appRemote.playerAPI?.subscribe(toPlayerState: { (result, error) in
+            if let error = error {
+              debugPrint(error.localizedDescription)
+            }
+          })
     }
+    
+    
     
     func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
         print("error")
@@ -62,7 +70,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         
         //Doesn't run, doesn't need to- for now...
         let parameters = appRemote.authorizationParameters(from: url);
-
+        print("e yes")
                 if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
                     appRemote.connectionParameters.accessToken = access_token
                     self.accessToken = access_token
@@ -90,7 +98,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     //App remote connect on scene activation
     func sceneDidBecomeActive(_ scene: UIScene) {
         //self.appRemote.authorizeAndPlayURI("spotify:track:4baAwbpkroYCwSIlaqzNXy" )
-        //self.appRemote.connect()
+        self.appRemote.connect()
     }
     
     //App remote disconnect on scene deactivation
