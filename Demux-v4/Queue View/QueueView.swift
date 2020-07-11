@@ -10,11 +10,13 @@ import Alamofire
 import SwiftyJSON
 import URLImage
 
+
 struct QueueView: View {
     
     let scenedelegate = SceneDelegate()
     let song = Song()
     @State var currentPlaying = Song()
+    @State var currentPlayingIndex: Int
     
     @State var searchText: String
     @State var queueArray = [Song]()
@@ -73,7 +75,7 @@ struct QueueView: View {
                 isLoading = true
                 song.loadQueue() { song in
                     queueArray = song
-                    Session.globalSession.currentSong = queueArray[0]
+                    Session.globalSession.currentSong = queueArray[currentPlayingIndex]
                     isLoading = false
                     code = randomString()
                 }
@@ -97,40 +99,43 @@ struct QueueView: View {
                                 .padding(.top, 15)
                             Button(action: {
                                 print("Start Party")
-                                scenedelegate.appRemote.authorizeAndPlayURI(queueArray[0].id)
-
+                                currentPlayingIndex = 0
+                                scenedelegate.appRemote.authorizeAndPlayURI(queueArray[currentPlayingIndex].id)
+                                
                             }) {
-                            Image(systemName: "dot.radiowaves.left.and.right")
-                                .font(.largeTitle)
-                                .foregroundColor(.purple)
-                                .padding(.top, 10)
+                                Image(systemName: "dot.radiowaves.left.and.right")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.purple)
+                                    .padding(.top, 10)
                             }
                             Spacer()
                             
                             //Album image
-                            let url = URL(string: queueArray[0].albumImage)
+                            let url = URL(string: queueArray[currentPlayingIndex].albumImage)
                             URLImage(url!,
-                                processors: [ Resize(size: CGSize(width: 100.0, height: 100.0), scale: UIScreen.main.scale) ],
-                                content:  {
-                                    $0.image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .clipped()
-                                })
-                                    .frame(width: 130.0, height: 130.0)
+                                     processors: [ Resize(size: CGSize(width: 100.0, height: 100.0), scale: UIScreen.main.scale) ],
+                                     content:  {
+                                        $0.image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .clipped()
+                                     })
+                                .frame(width: 130.0, height: 130.0)
                             Text("Now playing...")
                             
                             Spacer()
                             HStack {
                                 Button(action: {
                                     print("fast forward button pressed")
-
+                                    currentPlayingIndex = currentPlayingIndex + 1
+                                    //queueArray = refreshQueue(array: queueArray)
+                                    
                                 }) {
-                                Image(systemName: "forward.fill")
-                                    .font(.largeTitle)
-                                    .foregroundColor(.purple)
-                                    .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                                    .padding(.top, -15)
+                                    Image(systemName: "forward.fill")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.purple)
+                                        .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                        .padding(.top, -15)
                                 }
                                 Button(action: {
                                     print("play button pressed")
@@ -144,13 +149,14 @@ struct QueueView: View {
                                 }
                                 Button(action: {
                                     print("rewind button pressed")
+                                    currentPlayingIndex = currentPlayingIndex - 1
 
-                                        }) {
-                                        Image(systemName: "backward.fill")
-                                            .font(.largeTitle)
-                                            .foregroundColor(.purple)
-                                            .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                                            .padding(.top, -15)
+                                }) {
+                                    Image(systemName: "backward.fill")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.purple)
+                                        .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                        .padding(.top, -15)
                                 }
                             }
                         }
@@ -170,7 +176,15 @@ struct QueueView: View {
     }
 }
 
-
+func refreshQueue(array: [Song]) -> [Song] {
+    var refreshedArray = [Song]()
+    for song in array {
+        let songIndex = array.firstIndex(of: song)
+        refreshedArray[songIndex!-1] = song
+        
+    }
+    return refreshedArray
+}
 
 
 //Generate join code
@@ -183,6 +197,7 @@ func randomString() -> String {
 
 struct QueueView_Previews: PreviewProvider {
     static var previews: some View {
-        QueueView(searchText: "", isLoading: false, code: "")
+        QueueView(currentPlayingIndex: 0, searchText: "", isLoading: false, code: "")
     }
 }
+

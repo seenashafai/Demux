@@ -15,7 +15,7 @@ struct PlayerView: View {
     
     let scenedelegate = SceneDelegate()
     let song = Song()
-    let qV = QueueView(searchText: "", isLoading: false, code: "")
+    let qV = QueueView(currentPlayingIndex: 0, searchText: "", isLoading: false, code: "")
     @State var currentSong: Song?
     var currentImage: String?
     

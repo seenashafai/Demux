@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-struct Song: Identifiable {
+struct Song: Identifiable, Equatable {
     
     //Probably the spotify URI
     var id: String = ""
@@ -73,7 +73,6 @@ struct Song: Identifiable {
         ]
         AF.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default).response { response in
             print(response)
-            print(response.request?.httpBody)
         }
     }
     
