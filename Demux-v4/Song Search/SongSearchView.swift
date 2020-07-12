@@ -26,6 +26,7 @@ struct SongSearchView: View {
             
             Button(action: {
                 //Init query and token for track search
+                //songArray.removeAll()
                 let query = searchText
                 let authToken = Session.globalSession.authToken
                 //API request for song results

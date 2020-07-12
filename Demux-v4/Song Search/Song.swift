@@ -9,7 +9,16 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-struct Song: Identifiable, Equatable {
+struct Song: Identifiable, Equatable, Comparable
+{
+    static func < (lhs: Song, rhs: Song) -> Bool {
+        return lhs.votes < rhs.votes
+    }
+    
+    static func ==(lhs: Song, rhs: Song) -> Bool {
+        return lhs.votes == rhs.votes
+    }
+    
     
     //Probably the spotify URI
     var id: String = ""
@@ -50,12 +59,15 @@ struct Song: Identifiable, Equatable {
         let items = json["tracks"]["items"]
         
         for i in 0...4 {
+             
+            guard items[i]["uri"].string != nil else { print("json failed"); return resultsArray }
             song.name = items[i]["name"].string!
             song.album = items[i]["album"]["name"].string!
             song.artist = items[i]["album"]["artists"][0]["name"].string!
             song.id = items[i]["uri"].string!
             song.albumImage = items[i]["album"]["images"][0]["url"].string!
             resultsArray.append(song)
+        
         }
         print(resultsArray)
         return resultsArray
@@ -71,10 +83,11 @@ struct Song: Identifiable, Equatable {
             "artist": song.artist,
             "album": song.album,
             "image": song.albumImage,
-            "votes": song.votes
+            "votes": 0
         ] as [String : Any]
         AF.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default).response { response in
             print(response)
+            print(response.data)
         }
     }
     
@@ -129,7 +142,7 @@ struct Song: Identifiable, Equatable {
         let array = [Song]()
         let removeURL = "\(Session.globalSession.server)/songs/\(id)"
         AF.request(removeURL, method: .delete).response { response in
-            print(response)
+            //print(response)
         }
         return array
     }

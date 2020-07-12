@@ -79,7 +79,7 @@ struct QueueView: View {
                 isLoading = true
                 song.loadQueue() { song in
                     queueArray = song
-                    Session.globalSession.currentSong = queueArray[currentPlayingIndex]
+                    Session.globalSession.currentSong = getNextSong(array: queueArray)
                     isLoading = false
                     code = randomString()
                 }
@@ -135,7 +135,7 @@ struct QueueView: View {
                             if self.isPlaying {
                                 Text("Now playing...")
                                 //Album image
-                                let url = URL(string: queueArray[currentPlayingIndex].albumImage)
+                                let url = URL(string: getNextSong(array: queueArray).albumImage)
                                 URLImage(url!,
                                          processors: [ Resize(size: CGSize(width: 100.0, height: 100.0), scale: UIScreen.main.scale) ],
                                          content:  {
@@ -193,7 +193,10 @@ struct QueueView: View {
                                         //remoteCheck()
                                         print("fast forward button pressed")
                                         currentPlayingIndex = currentPlayingIndex + 1
-                                        remote().playerAPI?.play(queueArray[currentPlayingIndex].id, callback: defaultCallback)
+                                        remote().playerAPI?.play(getNextSong(array: queueArray).id, callback: defaultCallback)
+                                        print(queueArray, "qA")
+                                        queueArray = song.removeFromQueue(song: getNextSong(array: queueArray))
+
                                         
                                     }) {
                                         Image(systemName: "forward.fill")
@@ -237,6 +240,12 @@ func remoteCheck() {
     } else {
         print("remote already connected")
     }
+}
+
+func getNextSong(array: [Song]) -> Song
+{
+    print(array.debugDescription, "bruh")
+    return array.max()!
 }
 
 var defaultCallback: SPTAppRemoteCallback {

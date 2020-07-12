@@ -15,7 +15,6 @@ struct VotingView: View {
     
     var body: some View {
         VStack {
-            Divider()
             ScrollView(.horizontal) {
                 HStack(spacing: 30) {
                     ForEach(queueArray) { index in
@@ -23,8 +22,17 @@ struct VotingView: View {
                     }
                 }.padding()
             }.frame(height: 300)
-           // Divider()
-            //Spacer()
+            NavigationLink(destination: SongSearchView(searchText: "")) {
+                Text("Search for a song")
+                    .fontWeight(.bold)
+                        .font(.title)
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.black)
+                        .cornerRadius(20)
+                        .padding(.top, 50)
+            }
+
         }.onAppear {
             song.loadQueue() { songs in
                 queueArray = songs
