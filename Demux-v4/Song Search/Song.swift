@@ -17,6 +17,7 @@ struct Song: Identifiable, Equatable {
     var artist: String = ""
     var album: String = ""
     var albumImage: String = ""
+    var votes: Int = 0
     
     //Retreieve list of songs based on search query
     func search(query: String, authToken: String, completion: @escaping ([Song]) -> Void) {
@@ -69,8 +70,9 @@ struct Song: Identifiable, Equatable {
             "name": song.name,
             "artist": song.artist,
             "album": song.album,
-            "image": song.albumImage
-        ]
+            "image": song.albumImage,
+            "votes": song.votes
+        ] as [String : Any]
         AF.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default).response { response in
             print(response)
         }
@@ -114,6 +116,7 @@ struct Song: Identifiable, Equatable {
             song.artist = json[i]["artist"].string!
             song.id = json[i]["id"].string!
             song.albumImage = json[i]["image"].string!
+            song.votes = json[i]["votes"].int!
             resultsArray.append(song)
         }
         print(resultsArray)
@@ -129,6 +132,21 @@ struct Song: Identifiable, Equatable {
             print(response)
         }
         return array
+    }
+    
+    func addVote(song: Song) {
+        let endpoint = "\(Session.globalSession.server)/songs/\(song.id)"
+        let params = ["votes": song.votes] as [String : Any]
+        
+        AF.request(endpoint, method: .patch, parameters: params, encoding: JSONEncoding.default).response { response in
+            switch response.result {
+                case .success(let value):
+                    print(response.result)
+                    //completion(true)
+                case .failure(let error):
+                    print(error)
+            }
+        }
     }
 
 }

@@ -42,19 +42,8 @@ struct ContentView: View {
                     .cornerRadius(8)
                     
 
-                Button(action: {
-                    //TODO: - add guard statement for accesstoken...
-                    AF.request(userInfoEndpoint, method: .get, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer "+Session.globalSession.authToken!]).responseJSON { response in
-                        print(response.debugDescription)
-                        //Decode response as JSON
-                        if let result = response.value {
-                            let JSON = result as! NSDictionary
-                            print(JSON)
-                        }
-                    }
-
-                    
-                }) {
+                NavigationLink(destination: VotingView()) {
+                
                     Text("Join party")
                         .fontWeight(.bold)
                             .font(.title)
@@ -63,7 +52,9 @@ struct ContentView: View {
                             .foregroundColor(.black)
                             .cornerRadius(20)
                             .padding(10)
-                    }
+                    
+                }
+                    
                 }
             }
         }

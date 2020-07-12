@@ -29,8 +29,6 @@ struct QueueView: View {
     @State var isLoading: Bool
     @State var code: String
     @State var showingPlayer = false
-    
-    
 
     var body: some View {
         ZStack {
@@ -122,7 +120,6 @@ struct QueueView: View {
                                     .padding(.top, 15)
                                 Button(action: {
                                     print("stop party ")
-                                    //remote().playerAPI?.pause(defaultCallback)
                                     remote().disconnect()
                                     isPlaying = false
                                     isPartyActive = false
@@ -159,9 +156,8 @@ struct QueueView: View {
                                         print("rewind button pressed")
                                         currentPlayingIndex = currentPlayingIndex - 1
                                         //remoteCheck()
-                                        remote().playerAPI?.enqueueTrackUri(queueArray[currentPlayingIndex].id, callback: defaultCallback)
-                                        remote().playerAPI?.skip(toNext: defaultCallback)
-                                        //remote().playerAPI?.play(queueArray[currentPlayingIndex].id, callback: defaultCallback)
+                                        remote().playerAPI?.play(queueArray[currentPlayingIndex].id, callback: defaultCallback)
+                                        
 
                                     }) {
                                         Image(systemName: "backward.fill")
@@ -197,8 +193,7 @@ struct QueueView: View {
                                         //remoteCheck()
                                         print("fast forward button pressed")
                                         currentPlayingIndex = currentPlayingIndex + 1
-                                        remote().playerAPI?.enqueueTrackUri(queueArray[currentPlayingIndex].id, callback: defaultCallback)
-                                        remote().playerAPI?.skip(toNext: defaultCallback)
+                                        remote().playerAPI?.play(queueArray[currentPlayingIndex].id, callback: defaultCallback)
                                         
                                     }) {
                                         Image(systemName: "forward.fill")

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0438C9A524BB539200466909 /* VotingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438C9A424BB539200466909 /* VotingView.swift */; };
+		0438C9A924BB53C800466909 /* VotingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438C9A824BB53C800466909 /* VotingItem.swift */; };
+		0438C9AB24BB54F000466909 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438C9AA24BB54F000466909 /* User.swift */; };
 		04405A4524B7A329003B62CB /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 04405A4424B7A329003B62CB /* AlamofireImage */; };
 		04405A4A24B7C0A0003B62CB /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 04405A4924B7C0A0003B62CB /* URLImage */; };
 		0446BAA424A68D040053BF07 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E8D9B524A68BB000B58F10 /* SpotifyiOS.framework */; };
@@ -52,6 +55,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0438C9A424BB539200466909 /* VotingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingView.swift; sourceTree = "<group>"; };
+		0438C9A824BB53C800466909 /* VotingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingItem.swift; sourceTree = "<group>"; };
+		0438C9AA24BB54F000466909 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0446BA9E24A68C330053BF07 /* Demux-v4-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demux-v4-Bridging-Header.h"; sourceTree = "<group>"; };
 		0446BAA224A68CFA0053BF07 /* ios-sdk-1.2.2.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = "ios-sdk-1.2.2.zip"; path = "../../../../Downloads/ios-sdk-1.2.2.zip"; sourceTree = "<group>"; };
 		046C2FAD24B51E17007AE923 /* mongoid.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mongoid.config; sourceTree = "<group>"; };
@@ -114,6 +120,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0438C9A324BA20BB00466909 /* Voting View */ = {
+			isa = PBXGroup;
+			children = (
+				0438C9A424BB539200466909 /* VotingView.swift */,
+				0438C9A824BB53C800466909 /* VotingItem.swift */,
+			);
+			path = "Voting View";
+			sourceTree = "<group>";
+		};
 		046C2FAC24B51E17007AE923 /* SongQueue */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +155,7 @@
 				0486340224B0E7F600168A2B /* SongSearchView.swift */,
 				04A0C08924AE83860090C394 /* SongRow.swift */,
 				04A0C08724AE81FB0090C394 /* Song.swift */,
+				0438C9AA24BB54F000466909 /* User.swift */,
 			);
 			path = "Song Search";
 			sourceTree = "<group>";
@@ -173,6 +189,7 @@
 				04E8D98624A68B5000B58F10 /* SceneDelegate.swift */,
 				04E8D98824A68B5000B58F10 /* ContentView.swift */,
 				0486340424B0EC5800168A2B /* SearchBar.swift */,
+				0438C9A324BA20BB00466909 /* Voting View */,
 				048F0D6824B6052F00E5B22C /* Queue View */,
 				04A0C08B24AE83910090C394 /* Song Search */,
 				04A0C08124AE71FC0090C394 /* notes */,
@@ -371,13 +388,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0438C9AB24BB54F000466909 /* User.swift in Sources */,
 				04A0C08824AE81FB0090C394 /* Song.swift in Sources */,
 				0486340324B0E7F600168A2B /* SongSearchView.swift in Sources */,
 				04A0C08424AE74D90090C394 /* Session.swift in Sources */,
 				048F0D6C24B652E700E5B22C /* [OLD] PlayerView.swift in Sources */,
 				04E8D98524A68B5000B58F10 /* AppDelegate.swift in Sources */,
+				0438C9A924BB53C800466909 /* VotingItem.swift in Sources */,
 				048F0D6A24B6062D00E5B22C /* QueueView.swift in Sources */,
 				04A0C08A24AE83860090C394 /* SongRow.swift in Sources */,
+				0438C9A524BB539200466909 /* VotingView.swift in Sources */,
 				04E8D98724A68B5000B58F10 /* SceneDelegate.swift in Sources */,
 				0486340524B0EC5800168A2B /* SearchBar.swift in Sources */,
 				04E8D98924A68B5000B58F10 /* ContentView.swift in Sources */,
