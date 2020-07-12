@@ -15,6 +15,17 @@ class Session {
     public var authToken: String?
     public var currentSong: Song?
     public var server = "http://d1c246796927.ngrok.io"
+    public var joinCode: String?
+    
+    //Generate join code
+    func randomString() -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let joinCode = String((0..<5).map{ _ in letters.randomElement()! })
+        Session.globalSession.joinCode = joinCode
+
+        return joinCode
+    }
+
 }
 
 

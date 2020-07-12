@@ -15,6 +15,7 @@ struct QueueView: View {
     
     let scenedelegate = SceneDelegate()
     let song = Song()
+    let session = Session()
     var playerState: SPTAppRemotePlayerState?
 
     @State var currentPlaying = Song()
@@ -81,7 +82,7 @@ struct QueueView: View {
                     queueArray = song
                     Session.globalSession.currentSong = getNextSong(array: queueArray)
                     isLoading = false
-                    code = randomString()
+                    code = session.randomString()
                 }
             }
         // The Custom Popup is on top of the screen
@@ -290,6 +291,7 @@ private func getPlayerState() {
 func randomString() -> String {
     let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     let joinCode = String((0..<5).map{ _ in letters.randomElement()! })
+    Session.globalSession.joinCode = joinCode
 
     return joinCode
 }

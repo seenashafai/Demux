@@ -15,6 +15,9 @@ struct VotingView: View {
     
     var body: some View {
         VStack {
+            Text("Join code: \(Session.globalSession.joinCode ?? "TEST1")")
+                .font(.title)
+            Spacer()
             ScrollView(.horizontal) {
                 HStack(spacing: 30) {
                     ForEach(queueArray) { index in
