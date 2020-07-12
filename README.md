@@ -21,6 +21,7 @@ Dependencies:
 - Sinatra
 - Mongoid
 - Shotgun
+- URI
 
 ### Notes
 Xcode is currently set to allow unsecure http communication in Info.plist: 'App Transport Security Settings -> Allow Arbitrary Loads = true'
