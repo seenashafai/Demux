@@ -14,7 +14,7 @@ class Session {
     
     public var authToken: String?
     public var currentSong: Song?
-    public var server = "http://d1c246796927.ngrok.io"
+    public var server = "http://824808d7c3ad.ngrok.io"
     public var joinCode: String?
     
     //Generate join code

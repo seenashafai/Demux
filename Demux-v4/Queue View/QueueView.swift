@@ -38,7 +38,7 @@ struct QueueView: View {
                 HStack {
                     
                 //Filtering
-                Text("Search for a song")
+                Text("Search queue")
                     .font(.system(size: 30, weight: .black, design: .default))
                     .padding(.top, -20)
                     .padding(.leading, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
@@ -54,8 +54,11 @@ struct QueueView: View {
                         .padding(.top, -15)
                     }
                 }
+                //Search bar
                 SearchBar(text: $searchText)
-                List(queueArray) { song in
+
+                //Searchbar filtering
+                List(queueArray.filter({ searchText.isEmpty ? true : $0.name.contains(searchText) })) { song in
                     Button(action: {
                         print("alert")
                         self.showingAlert = true

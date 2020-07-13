@@ -70,7 +70,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
         
         //Doesn't run, doesn't need to- for now...
         let parameters = appRemote.authorizationParameters(from: url);
-        print("e yes")
                 if let access_token = parameters?[SPTAppRemoteAccessTokenKey] {
                     appRemote.connectionParameters.accessToken = access_token
                     self.accessToken = access_token

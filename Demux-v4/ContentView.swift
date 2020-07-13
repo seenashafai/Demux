@@ -64,14 +64,6 @@ struct ContentView: View {
     }
 
 
-
-//struct ContentView_Previews: PreviewProvider {
-//    @State var text: String
-//    static var previews: some View {
-//        ContentView(text: )
-//    }
-//}
-
 struct WelcomeText: View {
     var body: some View {
         Text("Demux")
@@ -79,7 +71,6 @@ struct WelcomeText: View {
             .font(.largeTitle)
             .fontWeight(.semibold)
             .padding(.bottom, 20)
-            //.padding(.top)
     }
 }
 
