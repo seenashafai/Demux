@@ -11,6 +11,9 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate {
     
     var window: UIWindow?
+    let song = Song()
+    var queue = [Song]()
+    @State var changed = false
     //Reference app delegate for session manager
     lazy var appdelegate = AppDelegate()
     static private let kAccessTokenKey = "access-token-key"
@@ -23,6 +26,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
           self.appRemote.playerAPI?.subscribe(toPlayerState: { (result, error) in
             if let error = error {
               debugPrint(error.localizedDescription)
+            } else {
+                debugPrint("subscribed to playerstate", result)
             }
           })
     }
@@ -40,6 +45,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     //MARK: - SPTAppRemotePlayerStateDelegate
     func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
         print("player state changed")
+        
+        let contextString = playerState.contextURI.absoluteString
+        if contextString.contains("station") {
+            print("track ended")
+            changed = true
+            song.loadQueue() { songItem in
+                self.queue = songItem
+                self.song.removeFromQueue(song: self.queue[0]) { song in
+                    self.queue = song
+                    remote().playerAPI?.play(self.queue[0].id, callback: defaultCallback)
+                    
+
+                }
+            }
+            
+        }
+        
+        debugPrint(playerState.contextTitle, "contextTitle")
     }
     
     

@@ -20,7 +20,7 @@ struct VotingView: View {
             Spacer()
             ScrollView(.horizontal) {
                 HStack(spacing: 30) {
-                    ForEach(queueArray) { index in
+                    ForEach(song.sortQueueByVotes(array: queueArray)) { index in
                         VotingItem(currentSong: index, isVoted: false, imageURL: index.albumImage)
                     }
                 }.padding()

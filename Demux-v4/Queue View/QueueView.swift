@@ -13,7 +13,6 @@ import URLImage
 
 struct QueueView: View {
     
-    let scenedelegate = SceneDelegate()
     let song = Song()
     let session = Session()
     var playerState: SPTAppRemotePlayerState?
@@ -22,6 +21,7 @@ struct QueueView: View {
     @State var currentPlayingIndex: Int
     @State var isPlaying = Bool()
     @State var isPartyActive = Bool()
+    @State var subscribedToPlayerState = Bool()
     
     @State var searchText: String
     @State var queueArray = [Song]()
@@ -30,6 +30,9 @@ struct QueueView: View {
     @State var isLoading: Bool
     @State var code: String
     @State var showingPlayer = false
+    
+    @State var sliderValue: Double = 0
+    @State var maxSliderValue: Double = 0
 
     var body: some View {
         ZStack {
@@ -69,21 +72,21 @@ struct QueueView: View {
                     //When row selected (delete function)
             }.alert(isPresented: self.$showingAlert) {
                 Alert(title: Text(currentSong.name), message:Text("You are about to delete this song from the queue"), primaryButton: .destructive(Text("Delete")) {
-                    //Delete from queue
-                    queueArray = song.removeFromQueue(song: currentSong)
-                    //Refresh queue
-                    song.loadQueue() { song in
+                    //Delete from queue & refresh
+                    song.removeFromQueue(song: currentSong) { song in
                         queueArray = song
+                        Session.globalSession.queue = queueArray
                     }
+
                     //Clear search bar
                     searchText = ""
                 }, secondaryButton: .cancel())
             }
             }.onAppear {
                 isLoading = true
-                song.loadQueue() { song in
-                    queueArray = song
-                    Session.globalSession.currentSong = getNextSong(array: queueArray)
+                song.loadQueue() { songItem in
+                    queueArray = songItem
+                    Session.globalSession.queue = queueArray
                     isLoading = false
                     code = session.randomString()
                 }
@@ -104,12 +107,14 @@ struct QueueView: View {
                         Spacer()
                         VStack {
                             if !self.isPartyActive {
+                                //MARK: - START
                                 Text("Start party")
                                     .padding(.top, 15)
                                 Button(action: {
                                     print("Start Party")
-                                    currentPlayingIndex = 0
-                                    remote().authorizeAndPlayURI(queueArray[currentPlayingIndex].id)
+                                    remote().authorizeAndPlayURI(queueArray[0].id)
+                                    
+                                    print(currentPlaying.name, currentPlayingIndex, queueArray)
                                     isPlaying = true
                                     isPartyActive = true
                                     
@@ -120,6 +125,7 @@ struct QueueView: View {
                                         .padding(.top, 10)
                                 }
                             } else {
+                                //MARK: - STOP
                                 Text("Stop party")
                                     .padding(.top, 15)
                                 Button(action: {
@@ -137,9 +143,11 @@ struct QueueView: View {
                             }
                             Spacer()
                             if self.isPlaying {
-                                Text("Now playing...")
+                                Text("Now playing: \(queueArray[0].name)")
+                                    .foregroundColor(.black)
+                                Spacer()
                                 //Album image
-                                let url = URL(string: getNextSong(array: queueArray).albumImage)
+                                let url = URL(string: queueArray[0].albumImage)
                                 URLImage(url!,
                                          processors: [ Resize(size: CGSize(width: 100.0, height: 100.0), scale: UIScreen.main.scale) ],
                                          content:  {
@@ -157,9 +165,10 @@ struct QueueView: View {
                             if self.isPartyActive {
                                 HStack {
                                     Button(action: {
+                                        //MARK: - REWIND
                                         print("rewind button pressed")
                                         currentPlayingIndex = currentPlayingIndex - 1
-                                        //remoteCheck()
+                                        print(currentPlaying.name, currentPlayingIndex, queueArray)
                                         remote().playerAPI?.play(queueArray[currentPlayingIndex].id, callback: defaultCallback)
                                         
 
@@ -172,6 +181,7 @@ struct QueueView: View {
                                     }
                                     
                                     Button(action: {
+                                        //MARK: - PLAY/PAUSE
                                         print("play/pause button pressed")
                                         remoteCheck()
                                         if isPlaying {
@@ -194,12 +204,20 @@ struct QueueView: View {
                                     }
                                     
                                     Button(action: {
-                                        //remoteCheck()
+                                        //MARK: - FAST FORWARD
+
                                         print("fast forward button pressed")
-                                        currentPlayingIndex = currentPlayingIndex + 1
-                                        remote().playerAPI?.play(getNextSong(array: queueArray).id, callback: defaultCallback)
-                                        print(queueArray, "qA")
-                                        queueArray = song.removeFromQueue(song: getNextSong(array: queueArray))
+                                        song.loadQueue() { songItem in
+                                            queueArray = songItem
+                                            song.removeFromQueue(song: queueArray[0]) { song in
+                                            queueArray = song
+                                            Session.globalSession.queue = queueArray
+                                            
+                                            remote().playerAPI?.play(queueArray[0].id, callback: defaultCallback)
+
+                                            }
+                                        }
+
 
                                         
                                     }) {
@@ -210,6 +228,7 @@ struct QueueView: View {
                                             .padding(.top, -15)
                                     }
                                 }
+                                
                             }
                         }
                         
@@ -238,7 +257,13 @@ func remote() -> SPTAppRemote{
     return appRemote!
 }
 
+func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
+    print("changed poo")
+}
+
 func remoteCheck() {
+    remote().playerAPI?.subscribe(toPlayerState: defaultCallback)
+
     if !remote().isConnected {
         print("remote not connected")
     } else {
@@ -276,19 +301,17 @@ func refreshQueue(array: [Song]) -> [Song] {
     return refreshedArray
 }
 
-
-//MARK: - SPTAppRemotePlayerStateDelegate
-func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
-    print("player state changed")
-}
-
-private func getPlayerState() {
-        remote().playerAPI?.getPlayerState { (result, error) -> Void in
-            guard error == nil else { return }
-
-            let playerState = result as! SPTAppRemotePlayerState
-        }
+func playNext() -> [Song] {
+    let song = Song()
+    var queue = [Song]()
+    print(Session.globalSession.queue, "gC")
+    song.removeFromQueue(song: Session.globalSession.queue![0]) { song in
+        queue = song
+        remote().playerAPI?.play(queue[0].id, callback: defaultCallback)
+        
     }
+    return queue
+}
 
 //Generate join code
 func randomString() -> String {
@@ -301,7 +324,11 @@ func randomString() -> String {
 
 struct QueueView_Previews: PreviewProvider {
     static var previews: some View {
-        QueueView(currentPlayingIndex: 0, searchText: "", isLoading: false, code: "")
+        Group {
+            QueueView(currentPlayingIndex: 0, searchText: "", isLoading: false, code: "")
+            QueueView(currentPlayingIndex: 0, searchText: "", isLoading: false, code: "")
+        }
     }
 }
+
 

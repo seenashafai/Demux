@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
  
@@ -57,6 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
     
     //Automatically runs once app has finished launching
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        FirebaseApp.configure()
         //Define scopes
         let requestedScopes: SPTScope = [.appRemoteControl]
         //Initialize Auth modal

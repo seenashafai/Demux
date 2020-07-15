@@ -21,7 +21,9 @@
 		0486340324B0E7F600168A2B /* SongSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486340224B0E7F600168A2B /* SongSearchView.swift */; };
 		0486340524B0EC5800168A2B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0486340424B0EC5800168A2B /* SearchBar.swift */; };
 		048F0D6A24B6062D00E5B22C /* QueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048F0D6924B6062D00E5B22C /* QueueView.swift */; };
-		048F0D6C24B652E700E5B22C /* [OLD] PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048F0D6B24B652E700E5B22C /* [OLD] PlayerView.swift */; };
+		0494E94224BC7865004D50CE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0494E94124BC7865004D50CE /* GoogleService-Info.plist */; };
+		0494E94324BC7865004D50CE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0494E94124BC7865004D50CE /* GoogleService-Info.plist */; };
+		0494E94424BC7865004D50CE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0494E94124BC7865004D50CE /* GoogleService-Info.plist */; };
 		04A0C08224AE71FC0090C394 /* notes in Resources */ = {isa = PBXBuildFile; fileRef = 04A0C08124AE71FC0090C394 /* notes */; };
 		04A0C08424AE74D90090C394 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A0C08324AE74D90090C394 /* Session.swift */; };
 		04A0C08824AE81FB0090C394 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A0C08724AE81FB0090C394 /* Song.swift */; };
@@ -35,6 +37,9 @@
 		04E8D99124A68B5200B58F10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E8D98F24A68B5200B58F10 /* LaunchScreen.storyboard */; };
 		04E8D99C24A68B5200B58F10 /* Demux_v4Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E8D99B24A68B5200B58F10 /* Demux_v4Tests.swift */; };
 		04E8D9A724A68B5200B58F10 /* Demux_v4UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E8D9A624A68B5200B58F10 /* Demux_v4UITests.swift */; };
+		180D9B21776681C971D26263 /* Pods_Demux_v4_Demux_v4UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20206FD3246267AFA7C26EE /* Pods_Demux_v4_Demux_v4UITests.framework */; };
+		46ADA59D1D3BBCAE93B1CB89 /* Pods_Demux_v4Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D65EF81CB568C8B922A23A3 /* Pods_Demux_v4Tests.framework */; };
+		50A1AAB76D78DDD85501A272 /* Pods_Demux_v4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B68F9EA471FEF7230C203AB2 /* Pods_Demux_v4.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +72,7 @@
 		0486340224B0E7F600168A2B /* SongSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSearchView.swift; sourceTree = "<group>"; };
 		0486340424B0EC5800168A2B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		048F0D6924B6062D00E5B22C /* QueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueView.swift; sourceTree = "<group>"; };
-		048F0D6B24B652E700E5B22C /* [OLD] PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[OLD] PlayerView.swift"; sourceTree = "<group>"; };
+		0494E94124BC7865004D50CE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04A0C08124AE71FC0090C394 /* notes */ = {isa = PBXFileReference; lastKnownFileType = text; path = notes; sourceTree = "<group>"; };
 		04A0C08324AE74D90090C394 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		04A0C08724AE81FB0090C394 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -88,6 +93,15 @@
 		04E8D9A824A68B5200B58F10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04E8D9B524A68BB000B58F10 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		04E8D9B624A68BB000B58F10 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
+		394E044F54F47ACA396D32EB /* Pods-Demux-v4-Demux-v4UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demux-v4-Demux-v4UITests.debug.xcconfig"; path = "Target Support Files/Pods-Demux-v4-Demux-v4UITests/Pods-Demux-v4-Demux-v4UITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4853194242C9701CBD59D192 /* Pods-Demux-v4-Demux-v4UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demux-v4-Demux-v4UITests.release.xcconfig"; path = "Target Support Files/Pods-Demux-v4-Demux-v4UITests/Pods-Demux-v4-Demux-v4UITests.release.xcconfig"; sourceTree = "<group>"; };
+		4D65EF81CB568C8B922A23A3 /* Pods_Demux_v4Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demux_v4Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84A3EE69D73316BA01B3F387 /* Pods-Demux-v4.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demux-v4.release.xcconfig"; path = "Target Support Files/Pods-Demux-v4/Pods-Demux-v4.release.xcconfig"; sourceTree = "<group>"; };
+		B68F9EA471FEF7230C203AB2 /* Pods_Demux_v4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demux_v4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C20206FD3246267AFA7C26EE /* Pods_Demux_v4_Demux_v4UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demux_v4_Demux_v4UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2831FC7B87B687E4EA55223 /* Pods-Demux-v4Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demux-v4Tests.release.xcconfig"; path = "Target Support Files/Pods-Demux-v4Tests/Pods-Demux-v4Tests.release.xcconfig"; sourceTree = "<group>"; };
+		D440B29D4D98E33AB26F91AA /* Pods-Demux-v4.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demux-v4.debug.xcconfig"; path = "Target Support Files/Pods-Demux-v4/Pods-Demux-v4.debug.xcconfig"; sourceTree = "<group>"; };
+		EB0C0970DA8FDE67E11D9EC4 /* Pods-Demux-v4Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demux-v4Tests.debug.xcconfig"; path = "Target Support Files/Pods-Demux-v4Tests/Pods-Demux-v4Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +114,7 @@
 				0446BAA424A68D040053BF07 /* SpotifyiOS.framework in Frameworks */,
 				04405A4A24B7C0A0003B62CB /* URLImage in Frameworks */,
 				04B1223824ACCC1D0042FB38 /* Alamofire in Frameworks */,
+				50A1AAB76D78DDD85501A272 /* Pods_Demux_v4.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46ADA59D1D3BBCAE93B1CB89 /* Pods_Demux_v4Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,12 +130,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				180D9B21776681C971D26263 /* Pods_Demux_v4_Demux_v4UITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0155E9F6AF7F6FAC4B18892B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D440B29D4D98E33AB26F91AA /* Pods-Demux-v4.debug.xcconfig */,
+				84A3EE69D73316BA01B3F387 /* Pods-Demux-v4.release.xcconfig */,
+				394E044F54F47ACA396D32EB /* Pods-Demux-v4-Demux-v4UITests.debug.xcconfig */,
+				4853194242C9701CBD59D192 /* Pods-Demux-v4-Demux-v4UITests.release.xcconfig */,
+				EB0C0970DA8FDE67E11D9EC4 /* Pods-Demux-v4Tests.debug.xcconfig */,
+				C2831FC7B87B687E4EA55223 /* Pods-Demux-v4Tests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		0438C9A324BA20BB00466909 /* Voting View */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,7 +174,6 @@
 			isa = PBXGroup;
 			children = (
 				048F0D6924B6062D00E5B22C /* QueueView.swift */,
-				048F0D6B24B652E700E5B22C /* [OLD] PlayerView.swift */,
 			);
 			path = "Queue View";
 			sourceTree = "<group>";
@@ -169,6 +198,7 @@
 				04E8D9A524A68B5200B58F10 /* Demux-v4UITests */,
 				04E8D98224A68B5000B58F10 /* Products */,
 				046C2FAC24B51E17007AE923 /* SongQueue */,
+				0155E9F6AF7F6FAC4B18892B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -193,6 +223,7 @@
 				048F0D6824B6052F00E5B22C /* Queue View */,
 				04A0C08B24AE83910090C394 /* Song Search */,
 				04A0C08124AE71FC0090C394 /* notes */,
+				0494E94124BC7865004D50CE /* GoogleService-Info.plist */,
 				04A0C08324AE74D90090C394 /* Session.swift */,
 				04E8D98A24A68B5200B58F10 /* Assets.xcassets */,
 				04E8D98F24A68B5200B58F10 /* LaunchScreen.storyboard */,
@@ -235,6 +266,9 @@
 				0446BAA224A68CFA0053BF07 /* ios-sdk-1.2.2.zip */,
 				04E8D9B624A68BB000B58F10 /* SpotifyiOS.framework */,
 				04E8D9B524A68BB000B58F10 /* SpotifyiOS.framework */,
+				B68F9EA471FEF7230C203AB2 /* Pods_Demux_v4.framework */,
+				C20206FD3246267AFA7C26EE /* Pods_Demux_v4_Demux_v4UITests.framework */,
+				4D65EF81CB568C8B922A23A3 /* Pods_Demux_v4Tests.framework */,
 			);
 			name = Frameworks;
 			path = "Demux-v4/Frameworks";
@@ -247,9 +281,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 04E8D9AB24A68B5200B58F10 /* Build configuration list for PBXNativeTarget "Demux-v4" */;
 			buildPhases = (
+				0B16935D48536E88DC70059C /* [CP] Check Pods Manifest.lock */,
 				04E8D97D24A68B5000B58F10 /* Sources */,
 				04E8D97E24A68B5000B58F10 /* Frameworks */,
 				04E8D97F24A68B5000B58F10 /* Resources */,
+				F468407C1FB9FD38A9366FFD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -270,6 +306,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 04E8D9AE24A68B5200B58F10 /* Build configuration list for PBXNativeTarget "Demux-v4Tests" */;
 			buildPhases = (
+				FCC9EECDAB75E1A076C9CC37 /* [CP] Check Pods Manifest.lock */,
 				04E8D99324A68B5200B58F10 /* Sources */,
 				04E8D99424A68B5200B58F10 /* Frameworks */,
 				04E8D99524A68B5200B58F10 /* Resources */,
@@ -288,9 +325,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 04E8D9B124A68B5200B58F10 /* Build configuration list for PBXNativeTarget "Demux-v4UITests" */;
 			buildPhases = (
+				2A581370AD43CB5A5D435BE5 /* [CP] Check Pods Manifest.lock */,
 				04E8D99E24A68B5200B58F10 /* Sources */,
 				04E8D99F24A68B5200B58F10 /* Frameworks */,
 				04E8D9A024A68B5200B58F10 /* Resources */,
+				2BE789B6FB04B41A1DC73CF6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -358,6 +397,7 @@
 			files = (
 				046C2FB224B51E17007AE923 /* Gemfile in Resources */,
 				04E8D99124A68B5200B58F10 /* LaunchScreen.storyboard in Resources */,
+				0494E94224BC7865004D50CE /* GoogleService-Info.plist in Resources */,
 				046C2FB424B51E17007AE923 /* server.rb in Resources */,
 				046C2FB324B51E17007AE923 /* Gemfile.lock in Resources */,
 				04E8D98E24A68B5200B58F10 /* Preview Assets.xcassets in Resources */,
@@ -371,6 +411,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0494E94324BC7865004D50CE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,10 +419,114 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0494E94424BC7865004D50CE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0B16935D48536E88DC70059C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Demux-v4-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2A581370AD43CB5A5D435BE5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Demux-v4-Demux-v4UITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2BE789B6FB04B41A1DC73CF6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Demux-v4-Demux-v4UITests/Pods-Demux-v4-Demux-v4UITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Demux-v4-Demux-v4UITests/Pods-Demux-v4-Demux-v4UITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Demux-v4-Demux-v4UITests/Pods-Demux-v4-Demux-v4UITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F468407C1FB9FD38A9366FFD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Demux-v4/Pods-Demux-v4-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Demux-v4/Pods-Demux-v4-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Demux-v4/Pods-Demux-v4-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCC9EECDAB75E1A076C9CC37 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Demux-v4Tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		04E8D97D24A68B5000B58F10 /* Sources */ = {
@@ -392,7 +537,6 @@
 				04A0C08824AE81FB0090C394 /* Song.swift in Sources */,
 				0486340324B0E7F600168A2B /* SongSearchView.swift in Sources */,
 				04A0C08424AE74D90090C394 /* Session.swift in Sources */,
-				048F0D6C24B652E700E5B22C /* [OLD] PlayerView.swift in Sources */,
 				04E8D98524A68B5000B58F10 /* AppDelegate.swift in Sources */,
 				0438C9A924BB53C800466909 /* VotingItem.swift in Sources */,
 				048F0D6A24B6062D00E5B22C /* QueueView.swift in Sources */,
@@ -567,6 +711,7 @@
 		};
 		04E8D9AC24A68B5200B58F10 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D440B29D4D98E33AB26F91AA /* Pods-Demux-v4.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -580,6 +725,7 @@
 					"$(PROJECT_DIR)/Demux-v4/Frameworks",
 				);
 				INFOPLIST_FILE = "Demux-v4/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -596,6 +742,7 @@
 		};
 		04E8D9AD24A68B5200B58F10 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84A3EE69D73316BA01B3F387 /* Pods-Demux-v4.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -609,6 +756,7 @@
 					"$(PROJECT_DIR)/Demux-v4/Frameworks",
 				);
 				INFOPLIST_FILE = "Demux-v4/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -624,6 +772,7 @@
 		};
 		04E8D9AF24A68B5200B58F10 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB0C0970DA8FDE67E11D9EC4 /* Pods-Demux-v4Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -646,6 +795,7 @@
 		};
 		04E8D9B024A68B5200B58F10 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C2831FC7B87B687E4EA55223 /* Pods-Demux-v4Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -668,6 +818,7 @@
 		};
 		04E8D9B224A68B5200B58F10 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 394E044F54F47ACA396D32EB /* Pods-Demux-v4-Demux-v4UITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -688,6 +839,7 @@
 		};
 		04E8D9B324A68B5200B58F10 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4853194242C9701CBD59D192 /* Pods-Demux-v4-Demux-v4UITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

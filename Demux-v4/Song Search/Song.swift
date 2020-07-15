@@ -7,6 +7,8 @@
 
 import Foundation
 import Alamofire
+import AlamofireImage
+import Firebase
 import SwiftyJSON
 
 struct Song: Identifiable, Equatable, Comparable
@@ -20,13 +22,27 @@ struct Song: Identifiable, Equatable, Comparable
     }
     
     
-    //Probably the spotify URI
     var id: String = ""
     var name: String = ""
     var artist: String = ""
     var album: String = ""
     var albumImage: String = ""
     var votes: Int = 0
+    var played: Bool = false
+    var duration: Double = 0
+    
+    var songDict: [String: Any] {
+            return [
+                "id": id,
+                "name": name,
+                "artist": artist,
+                "album": album,
+                "albumImage": albumImage,
+                "votes": votes,
+                "played": played,
+                "duration": duration
+            ]
+        }
     
     //Retreieve list of songs based on search query
     func search(query: String, authToken: String, completion: @escaping ([Song]) -> Void) {
@@ -66,6 +82,7 @@ struct Song: Identifiable, Equatable, Comparable
             song.artist = items[i]["album"]["artists"][0]["name"].string!
             song.id = items[i]["uri"].string!
             song.albumImage = items[i]["album"]["images"][0]["url"].string!
+            song.duration = items[i]["duration_ms"].double!
             resultsArray.append(song)
         
         }
@@ -76,6 +93,7 @@ struct Song: Identifiable, Equatable, Comparable
     
     //Add a song to the API queue
     func addToQueue(song: Song) {
+        
         let endpoint = "\(Session.globalSession.server)/songs"
         let params = [
             "id": song.id,
@@ -83,12 +101,21 @@ struct Song: Identifiable, Equatable, Comparable
             "artist": song.artist,
             "album": song.album,
             "image": song.albumImage,
-            "votes": 0
+            "votes": 0,
+            "played": false,
+            "duration": song.duration
         ] as [String : Any]
-        AF.request(endpoint, method: .post, parameters: params, encoding: JSONEncoding.default).response { response in
-            print(response)
-            print(response.data)
+        
+        // Add a new document in collection "cities"
+        Session.globalSession.db.collection("session1").document(song.id).setData(params) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+                print(song.id)
+            }
         }
+        
     }
     
     //Retrieve image from Spotify API using URL
@@ -105,19 +132,25 @@ struct Song: Identifiable, Equatable, Comparable
     func loadQueue(completion: @escaping ([Song]) -> Void)  {
         let endpoint = "\(Session.globalSession.server)/songs"
         var array = [Song]()
-        AF.request(endpoint, method:. get, encoding: JSONEncoding.default).responseJSON { response in
-            switch response.result {
-                case .success(let value):
-                    let json = JSON(value)
-                    let count = json.count
-                    print(count, "count")
-                    array = assignSearchResults(json: json, count: count)
-                    completion(array)
-                case .failure(let error):
-                    print(error)
+        var song = Song()
+        var resultsArray: [Song] = []
+
+        
+        Session.globalSession.db.collection("session1").whereField("played", isEqualTo: false).order(by: "votes", descending: true).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    song = Song(id: document.data()["id"] as! String, name:  document.data()["name"] as! String, artist:  document.data()["artist"] as! String, album:  document.data()["album"] as! String, albumImage:  document.data()["image"] as! String, votes:  document.data()["votes"] as! Int, played: document.data()["played"] as! Bool, duration: document.data()["duration"] as! Double)
+                    resultsArray.append(song)
                 }
+            }
+            print(resultsArray, "rA")
+            completion(resultsArray)
         }
     }
+
     
     func assignSearchResults(json: JSON, count: Int) -> [Song] {
         var song = Song()
@@ -137,29 +170,86 @@ struct Song: Identifiable, Equatable, Comparable
     }
     
     //Remove song from queue
-    func removeFromQueue(song: Song) -> [Song] {
+    func removeFromQueue(song: Song, completion: @escaping ([Song]) -> Void) {
         let id = song.id
-        let array = [Song]()
+        var array = [Song]()
         let removeURL = "\(Session.globalSession.server)/songs/\(id)"
         AF.request(removeURL, method: .delete).response { response in
-            //print(response)
+            print(response, "deleteResponse")
+            song.loadQueue() { song in
+                array = song
+                completion(array)
+            }
         }
-        return array
+        
+        let params = ["played": true] as [String : Any]
+        
+        Session.globalSession.db.collection("session1").document(song.id).setData(params, merge: true)
     }
     
     func addVote(song: Song) {
-        let endpoint = "\(Session.globalSession.server)/songs/\(song.id)"
+        //let endpoint = "\(Session.globalSession.server)/songs/\(song.id)"
         let params = ["votes": song.votes] as [String : Any]
         
-        AF.request(endpoint, method: .patch, parameters: params, encoding: JSONEncoding.default).response { response in
-            switch response.result {
-                case .success(let value):
-                    print(response.result)
-                    //completion(true)
-                case .failure(let error):
-                    print(error)
-            }
-        }
+        Session.globalSession.db.collection("session1").document(song.id).setData(params, merge: true)
+    }
+    
+    func sortQueueByVotes(array: [Song]) -> [Song]
+    {
+        var sortedArray = [Song]()
+        sortedArray = array.sorted(by: { $0.votes > $1.votes })
+        
+        return sortedArray
     }
 
+    
+    func isSongPlaying(authToken: String, completion: @escaping (Bool) -> Void) {
+        let playerEndpoint = "https://api.spotify.com/v1/me/player"
+        var isPlaying: Bool?
+
+        AF.request(playerEndpoint, method: .get, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer "+authToken]).responseJSON { response in
+            switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    isPlaying = parsePlayerResults(json: json)
+                    print(isPlaying)
+                    completion(isPlaying!)
+                case .failure(let error):
+                    print(error)
+                }
+        }
+    }
+    
+    //Parse search results into a song struct
+    func parsePlayerResults(json: JSON) -> Bool {
+        var result: Bool?
+
+        
+        guard json[0]["is_playing"].bool != nil else { print("json failed"); return false }
+        result = json[0]["is_playing"].bool
+        
+        return result!
+    }
+}
+
+extension Song {
+
+    init?(dictionary: [String: Any]) {
+        guard let id = dictionary["id"] as? String,
+            let name = dictionary["nameSurname"] as? String,
+            let artist = dictionary["email"] as? String,
+            let album = dictionary["password"] as? String,
+            let albumImage = dictionary["profileImageUrl"] as? String,
+            let votes = dictionary["votes"] as? Int,
+            let played = dictionary["played"] as? Bool,
+            let duration = dictionary["duration"] as? Double else { return nil }
+
+        self.init(id: id, name: name, artist: artist, album: album, albumImage: albumImage, votes: votes, played: played, duration: duration)
+    }
+}
+
+enum playerAction {
+    case pause
+    case fastforward
+    case rewind
 }

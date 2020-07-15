@@ -14,7 +14,7 @@ struct SongSearchView: View {
     @State var searchText: String
     @State var songArray = [Song]()
     @State var showingAlert = false
-    @State var currentSong = Song()
+    @State var currentSong: Song?
     
     var body: some View {
         VStack{
@@ -46,21 +46,23 @@ struct SongSearchView: View {
                 }
             List(songArray) { song in
                 Button(action: {
+                    print(songArray)
                 print("alert")
+                    print(song.id)
                     self.showingAlert = true
-                    self.currentSong = song
+                    currentSong = song
                 }) {
                     SongRow(song: song)
-                }
-            }.alert(isPresented: self.$showingAlert) {
-                Alert(title: Text(currentSong.name), message:Text("You are about to add this song to the queue"), primaryButton: .default(Text("Add to Queue")) {
-                    //Add to queue
-                    song.addToQueue(song: currentSong)
-                    //Clear search bar and results
-                    searchText = ""
-                    songArray.removeAll()
+                }.alert(isPresented: self.$showingAlert) {
+                    Alert(title: Text(song.name), message:Text("You are about to add this song to the queue"), primaryButton: .default(Text("Add to Queue")) {
+                        //Add to queue
+                        song.addToQueue(song: song)
+                        //Clear search bar and results
+                        searchText = ""
+                        songArray.removeAll()
 
-                }, secondaryButton: .cancel())
+                    }, secondaryButton: .cancel())
+                }
             }
         }
     }

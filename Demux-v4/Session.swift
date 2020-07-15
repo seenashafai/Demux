@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 //Class to hold session variables
 class Session {
@@ -16,6 +17,9 @@ class Session {
     public var currentSong: Song?
     public var server = "http://824808d7c3ad.ngrok.io"
     public var joinCode: String?
+    public let db = Firestore.firestore()
+    public var queue: [Song]?
+    public var subscribedToPlayerState = Bool()
     
     //Generate join code
     func randomString() -> String {
@@ -23,7 +27,7 @@ class Session {
         let joinCode = String((0..<5).map{ _ in letters.randomElement()! })
         Session.globalSession.joinCode = joinCode
 
-        return joinCode
+        return "session1"
     }
 
 }
