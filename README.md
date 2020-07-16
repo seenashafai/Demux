@@ -7,6 +7,7 @@ Dependencies:
 - AlamofireImage
 - SwiftyJSON
 - URLImage
+- Firebase (for the firebase-dev branch)
 
 (Will try to phase out these dependencies once everything is working; they can all be replicated with native code)
 
