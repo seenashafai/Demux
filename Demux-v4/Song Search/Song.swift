@@ -94,7 +94,6 @@ struct Song: Identifiable, Equatable, Comparable
     //Add a song to the API queue
     func addToQueue(song: Song) {
         
-        let endpoint = "\(Session.globalSession.server)/songs"
         let params = [
             "id": song.id,
             "name": song.name,
@@ -130,8 +129,6 @@ struct Song: Identifiable, Equatable, Comparable
     
     //Load queue from API, return queue array
     func loadQueue(completion: @escaping ([Song]) -> Void)  {
-        let endpoint = "\(Session.globalSession.server)/songs"
-        var array = [Song]()
         var song = Song()
         var resultsArray: [Song] = []
 
@@ -200,6 +197,15 @@ struct Song: Identifiable, Equatable, Comparable
         sortedArray = array.sorted(by: { $0.votes > $1.votes })
         
         return sortedArray
+    }
+    
+    func isQueueEmpty(completion: @escaping (Bool) -> Void)
+    {
+        var array = [Song]()
+        loadQueue() { songItem in
+            array = songItem
+            completion(array.isEmpty)
+        }
     }
 
     

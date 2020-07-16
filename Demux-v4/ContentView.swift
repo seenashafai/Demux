@@ -10,8 +10,6 @@ import Alamofire
 
 struct ContentView: View {
 
-    let userInfoEndpoint = "https://api.spotify.com/v1/me/"
-    let redirectURI = "demux://callback/"
     @State var text: String
     @State var joinCode: String
 

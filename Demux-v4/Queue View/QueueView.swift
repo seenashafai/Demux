@@ -30,6 +30,7 @@ struct QueueView: View {
     @State var isLoading: Bool
     @State var code: String
     @State var showingPlayer = false
+    @State var queueIsValid = true
     
     @State var sliderValue: Double = 0
     @State var maxSliderValue: Double = 0
@@ -165,22 +166,6 @@ struct QueueView: View {
                             if self.isPartyActive {
                                 HStack {
                                     Button(action: {
-                                        //MARK: - REWIND
-                                        print("rewind button pressed")
-                                        currentPlayingIndex = currentPlayingIndex - 1
-                                        print(currentPlaying.name, currentPlayingIndex, queueArray)
-                                        remote().playerAPI?.play(queueArray[currentPlayingIndex].id, callback: defaultCallback)
-                                        
-
-                                    }) {
-                                        Image(systemName: "backward.fill")
-                                            .font(.largeTitle)
-                                            .foregroundColor(.purple)
-                                            .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                                            .padding(.top, -15)
-                                    }
-                                    
-                                    Button(action: {
                                         //MARK: - PLAY/PAUSE
                                         print("play/pause button pressed")
                                         remoteCheck()
@@ -193,8 +178,6 @@ struct QueueView: View {
                                             print("play")
                                             isPlaying = true
                                         }
-                                        
-                                        
                                     }) {
                                         Image(systemName: "playpause.fill")
                                             .font(.largeTitle)
@@ -202,36 +185,42 @@ struct QueueView: View {
                                             .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                                             .padding(.top, -15)
                                     }
-                                    
-                                    Button(action: {
-                                        //MARK: - FAST FORWARD
-
-                                        print("fast forward button pressed")
-                                        song.loadQueue() { songItem in
-                                            queueArray = songItem
-                                            song.removeFromQueue(song: queueArray[0]) { song in
-                                            queueArray = song
-                                            Session.globalSession.queue = queueArray
-                                            
-                                            remote().playerAPI?.play(queueArray[0].id, callback: defaultCallback)
-
+                                    if queueIsValid {
+                                        Button(action: {
+                                            //MARK: - FAST FORWARD
+                                            print("fast forward button pressed")
+                                            song.loadQueue() { songItem in
+                                                queueArray = songItem
+                                                song.removeFromQueue(song: queueArray[0]) { song in
+                                                queueArray = song
+                                                print(queueArray)
+                                                Session.globalSession.queue = queueArray
+                                                    if queueArray.count < 2 {
+                                                        queueIsValid = false
+                                                    }
+                                                remote().playerAPI?.play(queueArray[0].id, callback: defaultCallback)
+                                                }
                                             }
+                                        }) {
+                                            Image(systemName: "forward.fill")
+                                                .font(.largeTitle)
+                                                .foregroundColor(.purple)
+                                                .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                                .padding(.top, -15)
                                         }
-
-
-                                        
-                                    }) {
-                                        Image(systemName: "forward.fill")
-                                            .font(.largeTitle)
-                                            .foregroundColor(.purple)
-                                            .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                                            .padding(.top, -15)
+                                    } else {
+                                    
+                                            Image(systemName: "forward.fill")
+                                                .font(.largeTitle)
+                                                .foregroundColor(.purple)
+                                                .opacity(0.3)
+                                                .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                                .padding(.top, -15)
+                                        }
                                     }
                                 }
-                                
                             }
                         }
-                        
                         Button(action: {
                             self.showingPlayer = false
                         }) {
@@ -245,7 +234,7 @@ struct QueueView: View {
             }
         }
     }
-}
+
 
 func remote() -> SPTAppRemote{
     
@@ -271,12 +260,6 @@ func remoteCheck() {
     }
 }
 
-func getNextSong(array: [Song]) -> Song
-{
-    print(array.debugDescription, "bruh")
-    return array.max()!
-}
-
 var defaultCallback: SPTAppRemoteCallback {
         get {
             print("yo")
@@ -291,28 +274,6 @@ var defaultCallback: SPTAppRemoteCallback {
     }
 
 
-func refreshQueue(array: [Song]) -> [Song] {
-    var refreshedArray = [Song]()
-    for song in array {
-        let songIndex = array.firstIndex(of: song)
-        refreshedArray[songIndex!-1] = song
-        
-    }
-    return refreshedArray
-}
-
-func playNext() -> [Song] {
-    let song = Song()
-    var queue = [Song]()
-    print(Session.globalSession.queue, "gC")
-    song.removeFromQueue(song: Session.globalSession.queue![0]) { song in
-        queue = song
-        remote().playerAPI?.play(queue[0].id, callback: defaultCallback)
-        
-    }
-    return queue
-}
-
 //Generate join code
 func randomString() -> String {
     let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -321,14 +282,4 @@ func randomString() -> String {
 
     return joinCode
 }
-
-struct QueueView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            QueueView(currentPlayingIndex: 0, searchText: "", isLoading: false, code: "")
-            QueueView(currentPlayingIndex: 0, searchText: "", isLoading: false, code: "")
-        }
-    }
-}
-
 

@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     var window: UIWindow?
     let song = Song()
     var queue = [Song]()
-    @State var changed = false
+    @State var queueIsValid = true
     //Reference app delegate for session manager
     lazy var appdelegate = AppDelegate()
     static private let kAccessTokenKey = "access-token-key"
@@ -45,26 +45,37 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate, S
     //MARK: - SPTAppRemotePlayerStateDelegate
     func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
         print("player state changed")
-        
-        let contextString = playerState.contextURI.absoluteString
-        if contextString.contains("station") {
-            print("track ended")
-            changed = true
-            song.loadQueue() { songItem in
-                self.queue = songItem
-                self.song.removeFromQueue(song: self.queue[0]) { song in
-                    self.queue = song
-                    remote().playerAPI?.play(self.queue[0].id, callback: defaultCallback)
-                    
-
-                }
+        song.loadQueue() { songItem in
+            self.queue = songItem
+            guard self.queue.count > 1 else {return}
+            if playerState.contextURI != URL(string: self.queue[0].id) {
+                self.songDidChange()
             }
-            
         }
+        
+//        let contextString = playerState.contextURI.absoluteString
+//        if contextString.contains("station") {
+//            print("track ended")
+//            songDidChange()
+//        }
         
         debugPrint(playerState.contextTitle, "contextTitle")
     }
     
+    func songDidChange() {
+        song.loadQueue() { songItem in
+            self.queue = songItem
+            self.song.removeFromQueue(song: self.queue[0]) { song in
+                self.queue = song
+                if self.queue.count < 2 {
+                    self.queueIsValid = false
+                } else {
+                    remote().playerAPI?.play(self.queue[0].id, callback: defaultCallback)
+                }
+
+            }
+        }
+    }
     
     //Initialise app remote
     lazy var appRemote: SPTAppRemote = {

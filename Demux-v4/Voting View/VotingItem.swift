@@ -19,7 +19,6 @@ struct VotingItem: View {
         VStack {
             ZStack {
                 //Album image
-                let url = URL(string: song.albumImage)
                 URLImage(URL(string: imageURL)!,
                          processors: [ Resize(size: CGSize(width: 100.0, height: 100.0), scale: UIScreen.main.scale) ],
                          content:  {
