@@ -45,7 +45,7 @@ GEM
     tilt (2.0.10)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
-    uri (0.10.0)
+    uri (0.10.0.1)
     zeitwerk (2.3.1)
 
 PLATFORMS
